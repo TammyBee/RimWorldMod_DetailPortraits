@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<!-- Dialog_EditPortrait -->
+	<DetailPortraits.Dialog_EditPortraitTitle>{0}のポートレイト設定</DetailPortraits.Dialog_EditPortraitTitle>
+
+	<DetailPortraits.OpenPresetListDialog>プリセット</DetailPortraits.OpenPresetListDialog>
+
+	<DetailPortraits.Label_RenderMode>描画モード</DetailPortraits.Label_RenderMode>
+	<DetailPortraits.Radio_RenderModeDefault>デフォルト</DetailPortraits.Radio_RenderModeDefault>
+	<DetailPortraits.Radio_RenderModeDetailPortrait>詳細版</DetailPortraits.Radio_RenderModeDetailPortrait>
+	<DetailPortraits.Radio_RenderModeBoth>デフォルト+詳細版</DetailPortraits.Radio_RenderModeBoth>
+
+	<DetailPortraits.Label_Position>座標</DetailPortraits.Label_Position>
+	<DetailPortraits.Label_Scale>拡大率</DetailPortraits.Label_Scale>
+	<DetailPortraits.Label_HideIcon>アイコンを隠す</DetailPortraits.Label_HideIcon>
+	<DetailPortraits.Label_RefreshTick>更新頻度(Tick)</DetailPortraits.Label_RefreshTick>
+
+	<DetailPortraits.Label_Layers>レイヤー</DetailPortraits.Label_Layers>
+
+	<DetailPortraits.Tooltip_Desc_RenderMode>'詳細版'を選択した場合、設定した画像のみを描画し、\n'デフォルト+詳細版'を選択した場合は、入植者の画像の上に設定した画像を描画します。</DetailPortraits.Tooltip_Desc_RenderMode>
+	<DetailPortraits.Tooltip_Desc_HideIcon>睡眠時などに描画される左下のアイコンを非表示にします。</DetailPortraits.Tooltip_Desc_HideIcon>
+	<DetailPortraits.Tooltip_Desc_RefreshTick>描画する画像を更新する頻度(単位:Tick)。\n時間経過とは別に特定の条件(例:Jobの開始時)で更新することがあります。</DetailPortraits.Tooltip_Desc_RefreshTick>
+
+	<!-- PortraitWidget -->
+	<DetailPortraits.Label_LayerPanelDisplayRow1>[{0}] {1}</DetailPortraits.Label_LayerPanelDisplayRow1>
+
+	<DetailPortraits.Label_LayerNumber>レイヤー番号</DetailPortraits.Label_LayerNumber>
+	<DetailPortraits.Label_LayerName>レイヤー名</DetailPortraits.Label_LayerName>
+
+	<DetailPortraits.Label_LayerFilePaths>画像ファイル</DetailPortraits.Label_LayerFilePaths>
+	<DetailPortraits.Label_DrawingConditions>描画条件</DetailPortraits.Label_DrawingConditions>
+
+	<DetailPortraits.Tooltip_Desc_LayerNumber>小さいほど手前に、大きいほど奥に描画されます。\n</DetailPortraits.Tooltip_Desc_LayerNumber>
+	<DetailPortraits.Tooltip_Desc_LayerName>レイヤーの名前です。\n設定しなくても大丈夫です。</DetailPortraits.Tooltip_Desc_LayerName>
+	<DetailPortraits.Tooltip_Desc_LayerFilePaths>このModの'Textures'フォルダからの相対パスを指定してください。\n拡張子は必要ありません。\n複数のファイルパスを指定した場合は、描画する画像をその中からランダムに選びます。</DetailPortraits.Tooltip_Desc_LayerFilePaths>
+	<DetailPortraits.Tooltip_Desc_DrawingConditions>ここで指定した条件をすべて満たした場合、このレイヤーの画像が描画されます。</DetailPortraits.Tooltip_Desc_DrawingConditions>
+
+	<!-- Dialog_EditDrawingCondition -->
+	<DetailPortraits.Dialog_EditDrawingConditionTitle>描画条件設定</DetailPortraits.Dialog_EditDrawingConditionTitle>
+	<DetailPortraits.Label_LHS>左辺</DetailPortraits.Label_LHS>
+	<DetailPortraits.Label_Operator>演算子</DetailPortraits.Label_Operator>
+	<DetailPortraits.Label_RHS>右辺</DetailPortraits.Label_RHS>
+	<DetailPortraits.Label_Reversed>フラグ反転</DetailPortraits.Label_Reversed>
+
+	<!-- DrawingConditionData -->
+	<!-- 0:LHS,1:operator,2:RHS,3:ReverseFlag(if true) -->
+	<DetailPortraits.DrawingConditionDataLabel>{3}{0} {1} {2}</DetailPortraits.DrawingConditionDataLabel>
+	<DetailPortraits.IsReverseLabel>not</DetailPortraits.IsReverseLabel>
+
+	<!-- DrawingConditionTermPreset -->
+	<DetailPortraits.DCTP_Job_Label>Job</DetailPortraits.DCTP_Job_Label>
+	<DetailPortraits.DCTP_ToilIndex_Label>Toil番号</DetailPortraits.DCTP_ToilIndex_Label>
+	<DetailPortraits.DCTP_ToilIndexBack_Label>Toil番号(後ろから)</DetailPortraits.DCTP_ToilIndexBack_Label>
+	<DetailPortraits.DCTP_Need_Label>欲求「{0}」</DetailPortraits.DCTP_Need_Label>
+	<DetailPortraits.DCTP_IsSleeping_Label>睡眠中</DetailPortraits.DCTP_IsSleeping_Label>
+	<DetailPortraits.DCTP_MentalState_Label>精神状態</DetailPortraits.DCTP_MentalState_Label>
+	<DetailPortraits.DCTP_AllHediffs_Label>全健康状態一覧</DetailPortraits.DCTP_AllHediffs_Label>
+	<DetailPortraits.DCTP_VisibleHediffs_Label>健康状態一覧</DetailPortraits.DCTP_VisibleHediffs_Label>
+	<DetailPortraits.DCTP_AllHediffStages_Label>全健康状態一覧(段階付き)</DetailPortraits.DCTP_AllHediffStages_Label>
+	<DetailPortraits.DCTP_AllApparels_Label>装備</DetailPortraits.DCTP_AllApparels_Label>
+	<DetailPortraits.DCTP_AllThoughts_Label>全心情一覧</DetailPortraits.DCTP_AllThoughts_Label>
+	<DetailPortraits.DCTP_AllThoughtStages_Label>全心情一覧(段階付き)</DetailPortraits.DCTP_AllThoughtStages_Label>
+	<DetailPortraits.DCTP_BleedRate_Label>出血量</DetailPortraits.DCTP_BleedRate_Label>
+	<DetailPortraits.DCTP_Random_Label>乱数</DetailPortraits.DCTP_Random_Label>
+	<DetailPortraits.DCTP_IsDrafted_Label>徴用中</DetailPortraits.DCTP_IsDrafted_Label>
+	<DetailPortraits.DCTP_IsDead_Label>死亡</DetailPortraits.DCTP_IsDead_Label>
+	<DetailPortraits.DCTP_IsDowned_Label>気絶中</DetailPortraits.DCTP_IsDowned_Label>
+	<DetailPortraits.DCTP_Inspiration_Label>ひらめき</DetailPortraits.DCTP_Inspiration_Label>
+
+	<DetailPortraits.CustomDataListPostfix> etc.</DetailPortraits.CustomDataListPostfix>
+
+	<!-- Dialog_PresetList -->
+	<DetailPortraits.LoadPreset>ロード</DetailPortraits.LoadPreset>
+	<DetailPortraits.DeleteThisPreset>この プリセットを 削除します。</DetailPortraits.DeleteThisPreset>
+	<DetailPortraits.SavePresetButton>保存</DetailPortraits.SavePresetButton>
+
+	<!-- HarmonyPatches -->
+	<DetailPortraits.EditPortraitButton>ポートレイト設定ウィンドウを開く</DetailPortraits.EditPortraitButton>
+</LanguageData>

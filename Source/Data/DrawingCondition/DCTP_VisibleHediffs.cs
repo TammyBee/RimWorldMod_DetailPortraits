@@ -20,7 +20,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_VisibleHediffs();
+                DCTP_VisibleHediffs dctp = new DCTP_VisibleHediffs();
+                dctp.rhsHediffDefName = new List<string>();
+                foreach (string rhs in this.rhsHediffDefName) {
+                    dctp.rhsHediffDefName.Add(rhs);
+                }
+                return dctp;
             }
         }
 

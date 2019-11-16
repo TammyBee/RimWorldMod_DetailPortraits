@@ -42,7 +42,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_MentalState();
+                DCTP_MentalState dctp = new DCTP_MentalState();
+                dctp.rhsMentalStateDefName = new List<string>();
+                foreach (string rhs in this.rhsMentalStateDefName) {
+                    dctp.rhsMentalStateDefName.Add(rhs);
+                }
+                return dctp;
             }
         }
 

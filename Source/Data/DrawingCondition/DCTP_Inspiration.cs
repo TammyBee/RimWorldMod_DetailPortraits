@@ -43,7 +43,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_Inspiration();
+                DCTP_Inspiration dctp = new DCTP_Inspiration();
+                dctp.rhsInspirationDefName = new List<string>();
+                foreach (string rhs in this.rhsInspirationDefName) {
+                    dctp.rhsInspirationDefName.Add(rhs);
+                }
+                return dctp;
             }
         }
 

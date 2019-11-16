@@ -38,7 +38,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_ToilIndexBack();
+                DCTP_ToilIndexBack dctp = new DCTP_ToilIndexBack();
+                dctp.toilIndexes = new List<int>();
+                foreach (int rhs in this.toilIndexes) {
+                    dctp.toilIndexes.Add(rhs);
+                }
+                return dctp;
             }
         }
 

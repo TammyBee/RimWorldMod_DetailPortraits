@@ -6,7 +6,7 @@ using Verse;
 
 namespace DetailPortraits.Data.DrawingCondition {
     public class DCTP_AllHediffs : DrawingConditionTermPreset {
-        private List<string> rhsHediffDefName = new List<string>();
+        protected List<string> rhsHediffDefName = new List<string>();
 
         public override bool AllowEmpty {
             get {
@@ -48,7 +48,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_AllHediffs();
+                DCTP_AllHediffs dctp = new DCTP_AllHediffs();
+                dctp.rhsHediffDefName = new List<string>();
+                foreach (string rhs in this.rhsHediffDefName) {
+                    dctp.rhsHediffDefName.Add(rhs);
+                }
+                return dctp;
             }
         }
 

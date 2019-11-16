@@ -54,7 +54,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_AllHediffStages();
+                DCTP_AllHediffStages dctp = dctp = new DCTP_AllHediffStages();
+                dctp.rhsHediffDefAndStageName = new List<HediffData>();
+                foreach (HediffData rhs in this.rhsHediffDefAndStageName) {
+                    dctp.rhsHediffDefAndStageName.Add(new HediffData(rhs.HediffDef,rhs.StageIndex));
+                }
+                return dctp;
             }
         }
 

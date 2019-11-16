@@ -41,7 +41,11 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            yield return p.jobs.curDriver.CurToilIndex;
+            if (p.jobs?.curDriver != null) {
+                yield return p.jobs.curDriver.CurToilIndex;
+            } else {
+                yield return 0;
+            }
         }
 
         public override void AddRHS(object rhs) {

@@ -67,7 +67,11 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            yield return p.CurJobDef.defName;
+            if (p.CurJobDef != null) {
+                yield return p.CurJobDef.defName;
+            } else {
+                yield return "";
+            }
         }
     }
 }

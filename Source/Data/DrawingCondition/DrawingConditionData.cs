@@ -23,7 +23,7 @@ namespace DetailPortraits.Data.DrawingCondition {
             this.isReversed = false;
         }
 
-        public DrawingConditionData(DrawingConditionTermPreset lhsPreset, object rhs, DrawingConditionOperator op, bool isReversed) {
+        public DrawingConditionData(DrawingConditionTermPreset lhsPreset, DrawingConditionOperator op, bool isReversed) {
             this.lhsPreset = lhsPreset.Copy;
             this.op = op;
             this.isReversed = isReversed;

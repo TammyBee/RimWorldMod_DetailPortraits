@@ -101,7 +101,7 @@ namespace DetailPortraits {
     class ColonistBarColonistDrawer_DrawIcons_Patch {
         static bool Prefix(Pawn colonist) {
             GameComponent_DetailPortraits comp = Current.Game.GetComponent<GameComponent_DetailPortraits>();
-            return comp == null || comp.portraits[colonist].renderMode == Data.RenderMode.Default || !comp.portraits[colonist].hideIcon;
+            return comp == null || !comp.portraits.ContainsKey(colonist) || comp.portraits[colonist].renderMode == Data.RenderMode.Default || !comp.portraits[colonist].hideIcon;
         }
     }
 }

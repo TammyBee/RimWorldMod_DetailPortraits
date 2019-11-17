@@ -36,7 +36,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_Job();
+                DCTP_Job dctp = new DCTP_Job();
+                dctp.rhsJobDefName = new List<string>();
+                foreach (string rhs in this.rhsJobDefName) {
+                    dctp.rhsJobDefName.Add(rhs);
+                }
+                return dctp;
             }
         }
 
@@ -67,7 +72,11 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            yield return p.CurJobDef.defName;
+            if (p.CurJobDef != null) {
+                yield return p.CurJobDef.defName;
+            } else {
+                yield return "";
+            }
         }
     }
 }

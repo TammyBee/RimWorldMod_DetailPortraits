@@ -49,7 +49,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_Need(this.needDef);
+                DCTP_Need dctp = new DCTP_Need(this.needDef);
+                dctp.levels = new List<float>();
+                foreach (float rhs in this.levels) {
+                    dctp.levels.Add(rhs);
+                }
+                return dctp;
             }
         }
 

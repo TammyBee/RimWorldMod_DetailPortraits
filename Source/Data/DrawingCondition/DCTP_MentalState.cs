@@ -42,7 +42,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_MentalState();
+                DCTP_MentalState dctp = new DCTP_MentalState();
+                dctp.rhsMentalStateDefName = new List<string>();
+                foreach (string rhs in this.rhsMentalStateDefName) {
+                    dctp.rhsMentalStateDefName.Add(rhs);
+                }
+                return dctp;
             }
         }
 
@@ -74,6 +79,8 @@ namespace DetailPortraits.Data.DrawingCondition {
         public override IEnumerable<object> GetValue(Pawn p) {
             if (p.MentalStateDef != null) {
                 yield return p.MentalStateDef.defName;
+            } else {
+                yield return "";
             }
         }
     }

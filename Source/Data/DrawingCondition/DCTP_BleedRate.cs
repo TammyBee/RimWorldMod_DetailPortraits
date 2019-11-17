@@ -37,12 +37,21 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_BleedRate();
+                DCTP_BleedRate dctp = new DCTP_BleedRate();
+                dctp.bleedRates = new List<float>();
+                foreach (float rhs in this.bleedRates) {
+                    dctp.bleedRates.Add(rhs);
+                }
+                return dctp;
             }
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            yield return p.health.hediffSet.BleedRateTotal;
+            if (p.health?.hediffSet != null) {
+                yield return p.health.hediffSet.BleedRateTotal;
+            } else {
+                yield return 0f;
+            }
         }
 
         public override void AddRHS(object rhs) {

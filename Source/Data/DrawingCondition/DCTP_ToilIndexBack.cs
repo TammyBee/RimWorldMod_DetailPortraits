@@ -38,13 +38,22 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_ToilIndexBack();
+                DCTP_ToilIndexBack dctp = new DCTP_ToilIndexBack();
+                dctp.toilIndexes = new List<int>();
+                foreach (int rhs in this.toilIndexes) {
+                    dctp.toilIndexes.Add(rhs);
+                }
+                return dctp;
             }
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            List<Toil> toils = Traverse.Create(p.jobs.curDriver).Field("toils").GetValue<List<Toil>>();
-            yield return toils.Count - p.jobs.curDriver.CurToilIndex - 1;
+            if (p.jobs?.curDriver != null) {
+                List<Toil> toils = Traverse.Create(p.jobs.curDriver).Field("toils").GetValue<List<Toil>>();
+                yield return toils.Count - p.jobs.curDriver.CurToilIndex - 1;
+            } else {
+                yield return 0;
+            }
         }
 
         public override void AddRHS(object rhs) {

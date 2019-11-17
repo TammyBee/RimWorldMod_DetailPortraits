@@ -55,7 +55,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_AllThoughts();
+                DCTP_AllThoughts dctp = new DCTP_AllThoughts();
+                dctp.rhsThoughtDefName = new List<string>();
+                foreach (string rhs in this.rhsThoughtDefName) {
+                    dctp.rhsThoughtDefName.Add(rhs);
+                }
+                return dctp;
             }
         }
 

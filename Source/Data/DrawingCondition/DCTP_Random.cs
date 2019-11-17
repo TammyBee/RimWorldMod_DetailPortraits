@@ -37,7 +37,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_Random();
+                DCTP_Random dctp = new DCTP_Random();
+                dctp.values = new List<float>();
+                foreach (float rhs in this.values) {
+                    dctp.values.Add(rhs);
+                }
+                return dctp;
             }
         }
 

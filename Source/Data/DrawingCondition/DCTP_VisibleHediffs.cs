@@ -20,14 +20,21 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_VisibleHediffs();
+                DCTP_VisibleHediffs dctp = new DCTP_VisibleHediffs();
+                dctp.rhsHediffDefName = new List<string>();
+                foreach (string rhs in this.rhsHediffDefName) {
+                    dctp.rhsHediffDefName.Add(rhs);
+                }
+                return dctp;
             }
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            foreach (Hediff hediff in p.health.hediffSet.hediffs) {
-                if (hediff.Visible) {
-                    yield return hediff.def.defName;
+            if (p.health?.hediffSet != null) {
+                foreach (Hediff hediff in p.health.hediffSet.hediffs) {
+                    if (hediff.Visible) {
+                        yield return hediff.def.defName;
+                    }
                 }
             }
         }

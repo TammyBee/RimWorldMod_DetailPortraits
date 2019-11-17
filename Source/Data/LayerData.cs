@@ -38,7 +38,11 @@ namespace DetailPortraits.Data {
         public LayerData(LayerData src) {
             this.parent = src.parent;
             this.layerNumber = src.layerNumber;
-            this.drawingConditions = new List<DrawingConditionData>(src.drawingConditions);
+            this.layerName = src.layerName;
+            this.drawingConditions = new List<DrawingConditionData>();
+            foreach (DrawingConditionData dcd in src.drawingConditions) {
+                this.drawingConditions.Add(new DrawingConditionData(dcd.lhsPreset,dcd.op,dcd.isReversed));
+            }
             this.textureData = src.textureData;
             this.localPosition = src.localPosition;
             this.localScale = src.localScale;

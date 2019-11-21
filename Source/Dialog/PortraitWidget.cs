@@ -14,6 +14,7 @@ namespace DetailPortraits.Dialog {
     public static class PortraitWidget {
         public static readonly Texture2D ReorderUp = ContentFinder<Texture2D>.Get("UI/Buttons/ReorderUp", true);
         public static readonly Texture2D ReorderDown = ContentFinder<Texture2D>.Get("UI/Buttons/ReorderDown", true);
+        public static readonly Texture2D Suspend = ContentFinder<Texture2D>.Get("UI/Buttons/Suspend", true);
         public static readonly Texture2D DeleteX = ContentFinder<Texture2D>.Get("UI/Buttons/Delete", true);
         public static readonly Texture2D Plus = ContentFinder<Texture2D>.Get("UI/Buttons/Plus", true);
         public static readonly Texture2D Edit = ContentFinder<Texture2D>.Get("UI/Buttons/OpenSpecificTab", true);
@@ -36,10 +37,13 @@ namespace DetailPortraits.Dialog {
             Select,
             ReorderUp,
             ReorderDown,
-            Delete
+            Delete,
+            Suspend
         }
 
         public static LayerPanelEvent DrawLayerPanel(Rect rect,LayerData layerData,ref float y,bool isFront,bool isBack, bool isSelected) {
+            LayerPanelEvent lpe = LayerPanelEvent.None;
+
             Widgets.DrawWindowBackground(rect.ContractedBy(1f));
 
             Color color = GUI.color;
@@ -47,8 +51,12 @@ namespace DetailPortraits.Dialog {
                 GUI.color = Color.red;
             }
             string layerPanelDisplayRow1 = "DetailPortraits.Label_LayerPanelDisplayRow1".Translate(layerData.layerNumber,layerData.layerName);
-            Widgets.Label(new Rect(rect.x + 32f,rect.y + 6f,rect.width,24f), layerPanelDisplayRow1);
-            GUI.color = color;
+            Color white = Color.white;
+            if (layerData.suspended) {
+                white = new Color(1f, 0.7f, 0.7f, 0.7f);
+            }
+            GUI.color = white;
+            Widgets.Label(new Rect(rect.x + 32f, rect.y + 6f, rect.width, 24f), layerPanelDisplayRow1);
 
             y += LayerPanelHeight;
 
@@ -56,23 +64,41 @@ namespace DetailPortraits.Dialog {
                 Widgets.DrawHighlight(rect.ContractedBy(1f));
             }
 
-            if (!isFront && Widgets.ButtonImage(new Rect(rect.x + 4f, rect.y + 6f, 24f, 24f), PortraitWidget.ReorderUp)) {
+            if (!isFront && Widgets.ButtonImage(new Rect(rect.x + 4f, rect.y + 6f, 24f, 24f), PortraitWidget.ReorderUp, white)) {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
-                return LayerPanelEvent.ReorderUp;
+                lpe = LayerPanelEvent.ReorderUp;
             }
-            if (!isBack && Widgets.ButtonImage(new Rect(rect.x + 4f, rect.y + 30f, 24f, 24f), PortraitWidget.ReorderDown)) {
+            if (!isBack && Widgets.ButtonImage(new Rect(rect.x + 4f, rect.y + 30f, 24f, 24f), PortraitWidget.ReorderDown, white)) {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
-                return LayerPanelEvent.ReorderDown;
+                lpe = LayerPanelEvent.ReorderDown;
             }
-            if (Widgets.ButtonImage(new Rect(rect.x + rect.width - 30f, rect.y + 6f, 24f, 24f), PortraitWidget.DeleteX)) {
+
+            if (Widgets.ButtonImage(new Rect(rect.x + rect.width - 30f, rect.y + 6f, 24f, 24f), PortraitWidget.DeleteX, white)) {
                 SoundDefOf.Click.PlayOneShotOnCamera(null);
-                return LayerPanelEvent.Delete;
+                lpe = LayerPanelEvent.Delete;
+            }
+            if (Widgets.ButtonImage(new Rect(rect.x + rect.width - 54f, rect.y + 6f, 24f, 24f), PortraitWidget.Suspend, white)) {
+                SoundDefOf.Click.PlayOneShotOnCamera(null);
+                layerData.suspended = !layerData.suspended;
+                lpe = LayerPanelEvent.Suspend;
             }
             if (Widgets.ButtonInvisible(rect.ContractedBy(1f))) {
                 RefreshLayerEditor(layerData);
-                return LayerPanelEvent.Select;
+                lpe = LayerPanelEvent.Select;
             }
-            return LayerPanelEvent.None;
+
+            if (layerData.suspended) {
+                Text.Font = GameFont.Medium;
+                Text.Anchor = TextAnchor.MiddleCenter;
+                Rect rect9 = new Rect(rect.x + rect.width / 2f - 70f, rect.y + rect.height / 2f - 20f, 140f, 40f);
+                GUI.DrawTexture(rect9, TexUI.GrayTextBG);
+                Widgets.Label(rect9, "SuspendedCaps".Translate());
+                Text.Anchor = TextAnchor.UpperLeft;
+                Text.Font = GameFont.Small;
+            }
+
+            GUI.color = Color.white;
+            return lpe;
         }
 
         public static void DrawLayerEditor(Rect rect, ref LayerData layerData) {

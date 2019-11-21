@@ -18,6 +18,7 @@ namespace DetailPortraits.Data {
         public TextureData textureData = new TextureData();
         public Vector2 localPosition = Vector2.zero;
         public float localScale = 1f;
+        public bool suspended;
 
         public PortraitData parent;
 
@@ -46,9 +47,13 @@ namespace DetailPortraits.Data {
             this.textureData = src.textureData.Copy;
             this.localPosition = src.localPosition;
             this.localScale = src.localScale;
+            this.suspended = src.suspended;
         }
 
         public bool CanRender(Pawn p) {
+            if (this.suspended) {
+                return false;
+            }
             if (drawingConditions.NullOrEmpty()) {
                 return true;
             }
@@ -83,6 +88,7 @@ namespace DetailPortraits.Data {
             Scribe_Deep.Look(ref textureData, "textureData");
             Scribe_Values.Look(ref localPosition, "localPosition");
             Scribe_Values.Look(ref localScale, "localScale");
+            Scribe_Values.Look(ref suspended, "suspended");
         }
 
         public override string ToString() {

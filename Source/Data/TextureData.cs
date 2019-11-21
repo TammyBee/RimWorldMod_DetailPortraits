@@ -22,6 +22,17 @@ namespace DetailPortraits.Data {
             }
         }
 
+        public TextureData Copy {
+            get {
+                TextureData data = new TextureData();
+                data.texturePaths = new List<string>();
+                foreach (string s in this.texturePaths) {
+                    data.texturePaths.Add(s);
+                }
+                return data;
+            }
+        }
+
         public Graphic GetGraphic(float scale) {
             if (this.cacheGraphicData == null) {
                 RefreshGraphic(scale);

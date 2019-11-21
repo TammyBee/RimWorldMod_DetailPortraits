@@ -43,7 +43,7 @@ namespace DetailPortraits.Data {
             foreach (DrawingConditionData dcd in src.drawingConditions) {
                 this.drawingConditions.Add(new DrawingConditionData(dcd.lhsPreset,dcd.op,dcd.isReversed));
             }
-            this.textureData = src.textureData;
+            this.textureData = src.textureData.Copy;
             this.localPosition = src.localPosition;
             this.localScale = src.localScale;
         }

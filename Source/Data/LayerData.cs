@@ -18,6 +18,8 @@ namespace DetailPortraits.Data {
         public TextureData textureData = new TextureData();
         public Vector2 localPosition = Vector2.zero;
         public float localScale = 1f;
+        public float localScaleH = 1f;
+        public bool suspended;
 
         public PortraitData parent;
 
@@ -43,26 +45,32 @@ namespace DetailPortraits.Data {
             foreach (DrawingConditionData dcd in src.drawingConditions) {
                 this.drawingConditions.Add(new DrawingConditionData(dcd.lhsPreset,dcd.op,dcd.isReversed));
             }
-            this.textureData = src.textureData;
+            this.textureData = src.textureData.Copy;
             this.localPosition = src.localPosition;
             this.localScale = src.localScale;
+            this.localScaleH = src.localScaleH;
+            this.suspended = src.suspended;
         }
 
         public bool CanRender(Pawn p) {
+            if (this.suspended) {
+                return false;
+            }
             if (drawingConditions.NullOrEmpty()) {
                 return true;
             }
             return drawingConditions.All(c => c.IsSatisfied(p));
         }
 
-        public void Render(Vector2 globalPosition,float globalScale) {
+        public void Render(Vector2 globalPosition, float globalScale, float globalScaleH) {
             Vector2 position = globalPosition + this.localPosition;
             float scale = globalScale * this.localScale;
+            float scaleH = globalScaleH * this.localScaleH;
 
-            Graphic graphic = textureData.GetGraphic(scale);
+            Graphic graphic = textureData.GetGraphic(scale, scaleH);
             if (graphic != null) {
                 Quaternion quaternion = Quaternion.AngleAxis(0f, Vector3.up);
-                Mesh mesh = MeshPool.humanlikeBodySet.MeshAt(Rot4.South);
+                //Mesh mesh = MeshPool.humanlikeBodySet.MeshAt(Rot4.South);
                 GenDraw.DrawMeshNowOrLater(graphic.MeshAt(Rot4.South), new Vector3(position.x, LayerBaseY + layerNumber * 0.01f, position.y), quaternion, graphic.MatSingle, true);
             }
         }
@@ -72,8 +80,8 @@ namespace DetailPortraits.Data {
             GUI.DrawTextureWithTexCoords(drawRect, tex, uvRect);
         }
 
-        public void Refresh(float globalScale) {
-            textureData.RefreshGraphic(this.localScale * globalScale);
+        public void Refresh(float globalScale, float globalScaleH) {
+            textureData.RefreshGraphic(this.localScale * globalScale, this.localScaleH * globalScaleH);
         }
 
         public void ExposeData() {
@@ -83,6 +91,8 @@ namespace DetailPortraits.Data {
             Scribe_Deep.Look(ref textureData, "textureData");
             Scribe_Values.Look(ref localPosition, "localPosition");
             Scribe_Values.Look(ref localScale, "localScale");
+            Scribe_Values.Look(ref localScaleH, "localScaleH", localScale);
+            Scribe_Values.Look(ref suspended, "suspended");
         }
 
         public override string ToString() {

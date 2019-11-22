@@ -7,6 +7,10 @@ using RimWorld;
 using UnityEngine;
 using DetailPortraits.Dialog;
 using Verse.AI;
+using System.Collections.Generic;
+using System.Text;
+using System.Reflection.Emit;
+using Harmony.ILCopying;
 
 namespace DetailPortraits {
     [StaticConstructorOnStartup]
@@ -15,7 +19,56 @@ namespace DetailPortraits {
             var harmony = HarmonyInstance.Create("com.tammybee.detailportraits");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
 
+            MethodInfo origDrawColonist = typeof(ColonistBarColonistDrawer).GetMethod("DrawColonist", AccessTools.all);
+            MethodInfo transDrawColonist = AccessTools.Method(typeof(ColonistBarColonistDrawer_DrawColonist_Patch), "Transpiler");
+            harmony.Patch(origDrawColonist, null, null, new HarmonyMethod(transDrawColonist));
+
             DetailPortraitsPref.LoadPref();
+        }
+    }
+
+    /*
+    class For_Debug {
+        static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) {
+            List<CodeInstruction> cis = new List<CodeInstruction>(instructions);
+            PrintCodeInstraction("[Debug]\n", cis);
+
+            foreach (CodeInstruction ci in cis) {
+                yield return ci;
+            }
+        }
+
+        public static void PrintCodeInstraction(string header, List<CodeInstruction> cis) {
+            StringBuilder sb = new StringBuilder(header);
+            foreach (CodeInstruction ci in cis) {
+                sb.Append(ci.ToString() + "\n");
+            }
+            Log.Message(sb.ToString());
+        }
+    }
+    */
+
+    class ColonistBarColonistDrawer_DrawColonist_Patch {
+        static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) {
+            List<CodeInstruction> cis = new List<CodeInstruction>(instructions);
+            //For_Debug.PrintCodeInstraction("[Before]", cis);
+
+            int insertPos = cis.FindIndex(c => (c.opcode == OpCodes.Brfalse && c.operand != null && Emitter.FormatArgument(c.operand) == "Label15"));
+            List<CodeInstruction> injections = new List<CodeInstruction> {
+                new CodeInstruction(OpCodes.Ldarg_2),
+                new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ColonistBarColonistDrawer_DrawColonist_Patch), "CanRenderDeadMark")),
+                new CodeInstruction(cis[insertPos])
+            };
+            cis.InsertRange(insertPos + 1, injections);
+
+            foreach (CodeInstruction ci in cis) {
+                yield return ci;
+            }
+            //For_Debug.PrintCodeInstraction("[After]", cis);
+        }
+
+        private static bool CanRenderDeadMark(Pawn p) {
+            return p.CanRenderPortraitIcon();
         }
     }
 
@@ -30,13 +83,17 @@ namespace DetailPortraits {
                 Thing singleSelectedThing = Find.Selector.SingleSelectedThing;
                 if (singleSelectedThing != null) {
                     Pawn pawn = singleSelectedThing as Pawn;
+                    float x = 72f;
+                    if (pawn != null && pawn.playerSettings != null && pawn.playerSettings.UsesConfigurableHostilityResponse) {
+                        x = 96f;
+                    }
                     if (pawn != null && pawn.IsColonist) {
-                        EditPortraitButton(rect.width - 96f, 0f, pawn);
+                        EditPortraitButton(rect.width - x, 0f, pawn);
                         lineEndWidth += 24f;
                     } else {
                         Corpse corpse = singleSelectedThing as Corpse;
                         if (corpse?.InnerPawn != null && corpse.InnerPawn.IsColonist) {
-                            EditPortraitButton(rect.width - 96f, 0f, corpse.InnerPawn);
+                            EditPortraitButton(rect.width - x, 0f, corpse.InnerPawn);
                             lineEndWidth += 24f;
                         }
                     }
@@ -100,8 +157,7 @@ namespace DetailPortraits {
     [HarmonyPatch("DrawIcons")]
     class ColonistBarColonistDrawer_DrawIcons_Patch {
         static bool Prefix(Pawn colonist) {
-            GameComponent_DetailPortraits comp = Current.Game.GetComponent<GameComponent_DetailPortraits>();
-            return comp == null || !comp.portraits.ContainsKey(colonist) || comp.portraits[colonist].renderMode == Data.RenderMode.Default || !comp.portraits[colonist].hideIcon;
+            return colonist.CanRenderPortraitIcon();
         }
     }
 }

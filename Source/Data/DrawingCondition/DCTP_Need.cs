@@ -66,7 +66,12 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            yield return p.needs.TryGetNeed(this.needDef).CurLevelPercentage;
+            Need need = p.needs?.TryGetNeed(this.needDef);
+            if (need != null) {
+                yield return need.CurLevelPercentage;
+            } else {
+                yield return 0f;
+            }
         }
 
         public override void AddRHS(object rhs) {

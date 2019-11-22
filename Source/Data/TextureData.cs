@@ -22,20 +22,31 @@ namespace DetailPortraits.Data {
             }
         }
 
-        public Graphic GetGraphic(float scale) {
+        public TextureData Copy {
+            get {
+                TextureData data = new TextureData();
+                data.texturePaths = new List<string>();
+                foreach (string s in this.texturePaths) {
+                    data.texturePaths.Add(s);
+                }
+                return data;
+            }
+        }
+
+        public Graphic GetGraphic(float scale, float scaleH) {
             if (this.cacheGraphicData == null) {
-                RefreshGraphic(scale);
+                RefreshGraphic(scale, scaleH);
             }
             return this.cacheGraphicData.Graphic;
         }
 
-        public void RefreshGraphic(float scale) {
+        public void RefreshGraphic(float scale, float scaleH) {
             string texturePath = CandidatePaths.RandomElement();
             this.cacheGraphicData = new GraphicData();
             this.cacheGraphicData.graphicClass = typeof(Graphic_Single);
             this.cacheGraphicData.texPath = texturePath;
             this.cacheGraphicData.shaderType = ShaderTypeDefOf.Transparent;
-            this.cacheGraphicData.drawSize = Vector2.one * scale;
+            this.cacheGraphicData.drawSize = new Vector2(scale, scaleH);
             this.cacheGraphicData.color = Color.white;
         }
 

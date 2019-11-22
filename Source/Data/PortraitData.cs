@@ -11,6 +11,7 @@ namespace DetailPortraits.Data {
         public RenderMode renderMode = RenderMode.Default;
         public Vector2 globalPosition = Vector2.zero;
         public float globalScale = 1f;
+        public float globalScaleH = 1f;
         public List<LayerData> layers = new List<LayerData>();
         public int refreshTick = 240;
         public bool hideIcon = false;
@@ -45,6 +46,7 @@ namespace DetailPortraits.Data {
             this.renderMode = src.renderMode;
             this.globalPosition = src.globalPosition;
             this.globalScale = src.globalScale;
+            this.globalScaleH = src.globalScaleH;
             this.layers = new List<LayerData>(src.layers);
             this.refreshTick = src.refreshTick;
             this.hideIcon = src.hideIcon;
@@ -56,7 +58,7 @@ namespace DetailPortraits.Data {
             foreach (LayerData layer in this.layers) {
                 if (!filledLayerNumbers.Contains(layer.layerNumber) && layer.CanRender(this.pawn)) {
                     filledLayerNumbers.Add(layer.layerNumber);
-                    layer.Refresh(this.globalScale);
+                    layer.Refresh(this.globalScale, this.globalScaleH);
                     this.cacheRenderableLayers.Add(layer);
                 }
             }
@@ -68,7 +70,7 @@ namespace DetailPortraits.Data {
 
         public void Render() {
             foreach (LayerData layer in RenderableLayers) {
-                layer.Render(this.globalPosition,this.globalScale);
+                layer.Render(this.globalPosition,this.globalScale, this.globalScaleH);
             }
         }
 
@@ -94,6 +96,7 @@ namespace DetailPortraits.Data {
             Scribe_Values.Look(ref renderMode, "renderMode");
             Scribe_Values.Look(ref globalPosition, "globalPosition");
             Scribe_Values.Look(ref globalScale, "globalScale");
+            Scribe_Values.Look(ref globalScaleH, "globalScaleH", globalScale);
             Scribe_Collections.Look(ref layers, "layers", LookMode.Deep);
             Scribe_Values.Look(ref refreshTick, "refreshTick");
             Scribe_References.Look(ref pawn, "pawn");

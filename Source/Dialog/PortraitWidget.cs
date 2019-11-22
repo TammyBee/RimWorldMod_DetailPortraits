@@ -26,6 +26,7 @@ namespace DetailPortraits.Dialog {
         private static FloatField floatFieldPositionX;
         private static FloatField floatFieldPositionY;
         private static FloatField floatFieldScale;
+        private static FloatField floatFieldScaleH;
 
         private static Vector2 scrollPosition;
         private static Vector2 scrollPositionDrawConditions;
@@ -137,6 +138,12 @@ namespace DetailPortraits.Dialog {
                     layerData.parent.RefreshRenderableLayers();
                 }
             }
+            if (floatFieldScaleH.Update(new Rect(rect.x + 334f, rect.y + 250f, 120f, 24f))) {
+                if (layerData.localScaleH != floatFieldScaleH.Value) {
+                    layerData.localScaleH = floatFieldScaleH.Value;
+                    layerData.parent.RefreshRenderableLayers();
+                }
+            }
 
             TooltipHandler.TipRegion(new Rect(rect.x + 4f, rect.y + 280f, 200f, 24f), "DetailPortraits.Tooltip_Desc_DrawingConditions".Translate());
             Widgets.Label(new Rect(rect.x + 4f, rect.y + 280f, 200f, 24f), "DetailPortraits.Label_DrawingConditions".Translate());
@@ -180,6 +187,7 @@ namespace DetailPortraits.Dialog {
             floatFieldPositionX = new FloatField(layerData.localPosition.x);
             floatFieldPositionY = new FloatField(layerData.localPosition.y);
             floatFieldScale = new FloatField(layerData.localScale);
+            floatFieldScaleH = new FloatField(layerData.localScaleH);
 
             scrollPosition = Vector2.zero;
             scrollPositionDrawConditions = Vector2.zero;

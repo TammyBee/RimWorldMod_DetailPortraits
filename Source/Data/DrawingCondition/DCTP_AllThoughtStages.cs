@@ -94,9 +94,11 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override IEnumerable<object> GetValue(Pawn p) {
             List<Thought> thoughts = new List<Thought>();
-            p.needs.mood.thoughts.GetDistinctMoodThoughtGroups(thoughts);
-            foreach (Thought thought in thoughts) {
-                yield return new ThoughtData(thought.def, thought.CurStageIndex);
+            if (p?.needs?.mood?.thoughts != null) {
+                p.needs.mood.thoughts.GetDistinctMoodThoughtGroups(thoughts);
+                foreach (Thought thought in thoughts) {
+                    yield return new ThoughtData(thought.def, thought.CurStageIndex);
+                }
             }
         }
     }

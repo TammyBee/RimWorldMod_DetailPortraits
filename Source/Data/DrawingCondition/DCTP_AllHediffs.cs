@@ -83,7 +83,7 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            if (p.health?.hediffSet != null) {
+            if (p.health?.hediffSet?.hediffs != null) {
                 foreach (Hediff hediff in p.health.hediffSet.hediffs) {
                     yield return hediff.def.defName;
                 }

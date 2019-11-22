@@ -89,8 +89,10 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            foreach (ApparelGraphicRecord record in p.Drawer.renderer.graphics.apparelGraphics) {
-                yield return record.sourceApparel.def.label;
+            if (p?.Drawer?.renderer?.graphics?.apparelGraphics != null) {
+                foreach (ApparelGraphicRecord record in p.Drawer.renderer.graphics.apparelGraphics) {
+                    yield return record.sourceApparel.def.label;
+                }
             }
         }
     }

@@ -18,6 +18,7 @@ namespace DetailPortraits.Dialog {
         private FloatField floatFieldPositionX;
         private FloatField floatFieldPositionY;
         private FloatField floatFieldScale;
+        private FloatField floatFieldScaleH;
 
         private Vector2 scrollPosition;
         private LayerData selectedLayer = null;
@@ -56,6 +57,7 @@ namespace DetailPortraits.Dialog {
             this.floatFieldPositionX = new FloatField(PortraitData.globalPosition.x);
             this.floatFieldPositionY = new FloatField(PortraitData.globalPosition.y);
             this.floatFieldScale = new FloatField(PortraitData.globalScale);
+            this.floatFieldScaleH = new FloatField(PortraitData.globalScaleH);
 
             this.bufferRefreshTick = PortraitData.refreshTick.ToString();
 
@@ -120,6 +122,12 @@ namespace DetailPortraits.Dialog {
                         this.PortraitData.RefreshRenderableLayers();
                     }
                 }
+                if (floatFieldScaleH.Update(new Rect(rect2.x + 310f, rect2.y, 100f, 24f))) {
+                    if (PortraitData.globalScaleH != floatFieldScaleH.Value) {
+                        PortraitData.globalScaleH = floatFieldScaleH.Value;
+                        this.PortraitData.RefreshRenderableLayers();
+                    }
+                }
                 rect2.y += 32f;
 
                 TooltipHandler.TipRegion(new Rect(rect2.x, rect2.y, 200f, 24f), "DetailPortraits.Tooltip_Desc_HideIcon".Translate());
@@ -172,7 +180,7 @@ namespace DetailPortraits.Dialog {
 
         private void RenderDebug() {
             foreach (LayerData layer in PortraitData.RenderableLayers) {
-                Graphic graphic = layer.textureData.GetGraphic(PortraitData.globalScale * layer.localScale);
+                Graphic graphic = layer.textureData.GetGraphic(PortraitData.globalScale * layer.localScale, PortraitData.globalScaleH * layer.localScaleH);
                 Texture tex = graphic?.MatSingle?.mainTexture;
                 Widgets.DrawTextureFitted(new Rect(layer.localPosition + PortraitData.globalPosition, new Vector2(tex.width,tex.height)),tex,1f);
             }

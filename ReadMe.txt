@@ -11,6 +11,7 @@
 ■更新履歴
 [2020/02/27]1.0と1.1に両対応
 ・1.0と1.1に両対応
+・設定済みのプリセットと画像を追加しました。
 
 [2019/11/22]機能追加+バグ修正(1.0.1)
 ・縦方向と横方向の拡大率を個別に変更できるようにした。
@@ -37,3 +38,5 @@ http://seesaawiki.jp/rimworld/d/%cc%b1%b2%d0%20MOD
 
 ・Harmonyスレッド | Ludeonフォーラム
 https://ludeon.com/forums/index.php?topic=29517.0
+
+"Twemoji" by Twitter, Inc and other contributors is licensed under CC-BY 4.0

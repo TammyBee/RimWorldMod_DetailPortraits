@@ -34,3 +34,4 @@
   
 - [Harmonyスレッド | Ludeonフォーラム](https://ludeon.com/forums/index.php?topic=29517.0)  
   
+"Twemoji" by Twitter, Inc and other contributors is licensed under CC-BY 4.0

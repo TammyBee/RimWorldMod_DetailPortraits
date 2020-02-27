@@ -47,7 +47,7 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            if (p.health?.hediffSet != null) {
+            if (p?.health?.hediffSet != null) {
                 yield return p.health.hediffSet.BleedRateTotal;
             } else {
                 yield return 0f;

@@ -52,7 +52,7 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            yield return p.CurJob != null && p.jobs.curDriver != null && p.jobs.curDriver.asleep;
+            yield return p?.CurJob != null && p?.jobs?.curDriver != null && p.jobs.curDriver.asleep;
         }
     }
 }

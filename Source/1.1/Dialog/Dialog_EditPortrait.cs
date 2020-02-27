@@ -27,7 +27,7 @@ namespace DetailPortraits.Dialog {
 
         public PortraitData PortraitData {
             get {
-                Dictionary<Pawn, PortraitData> dict = Current.Game.GetComponent<GameComponent_DetailPortraits>().portraits;
+                Dictionary<Thing, PortraitData> dict = Current.Game.GetComponent<GameComponent_DetailPortraits>().portraits;
                 if (!dict.ContainsKey(pawn)) {
                     dict[pawn] = new PortraitData(pawn);
                 }

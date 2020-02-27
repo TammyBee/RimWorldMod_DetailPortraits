@@ -7,9 +7,9 @@ using Verse;
 
 namespace DetailPortraits {
     public class GameComponent_DetailPortraits : GameComponent {
-        public Dictionary<Pawn, PortraitData> portraits;
+        public Dictionary<Thing, PortraitData> portraits;
 
-        private List<Pawn> tmpPawns;
+        private List<Thing> tmpPawns;
 
         private List<PortraitData> tmpPortraits;
 
@@ -45,7 +45,7 @@ namespace DetailPortraits {
 
         public void Refresh() {
             if (this.portraits == null) {
-                this.portraits = new Dictionary<Pawn, PortraitData>();
+                this.portraits = new Dictionary<Thing, PortraitData>();
             }
             foreach(Pawn p in Utils.GetAllColonists()) {
                 if (p != null && !this.portraits.ContainsKey(p)) {
@@ -58,7 +58,52 @@ namespace DetailPortraits {
         }
 
         public override void ExposeData() {
-            Scribe_Collections.Look(ref portraits, "portraits", LookMode.Reference,LookMode.Deep,ref tmpPawns,ref tmpPortraits);
+            if (Scribe.mode == LoadSaveMode.Saving) {
+                List<Pawn> deadColonists = new List<Pawn>();
+                foreach (Thing t in portraits.Keys) {
+                    if (t != null) {
+                        Pawn p = t as Pawn;
+                        if (p != null && p.Dead && p.Corpse != null) {
+                            deadColonists.Add(p);
+                        }
+                    }
+                }
+                foreach (Pawn p in deadColonists) {
+                    portraits[p.Corpse] = new PortraitData(portraits[p],null);
+                    //Log.Message("Set Corpse Key:" + p.ToStringSafe());
+                    portraits.Remove(p);
+                }
+                Scribe_Collections.Look(ref portraits, "portraits", LookMode.Reference, LookMode.Deep, ref tmpPawns, ref tmpPortraits);
+                foreach (Pawn p in deadColonists) {
+                    Corpse c = p.Corpse;
+                    if (c != null) {
+                        portraits[c.InnerPawn] = new PortraitData(portraits[c], c.InnerPawn);
+                        //Log.Message("Set Colonist Key:" + c.InnerPawn.ToStringSafe());
+                        portraits.Remove(c);
+                    }
+                }
+            } else {
+                Scribe_Collections.Look(ref portraits, "portraits", LookMode.Reference, LookMode.Deep, ref tmpPawns, ref tmpPortraits);
+            }
+            if (Scribe.mode == LoadSaveMode.PostLoadInit) {
+                List<Corpse> corpse = new List<Corpse>();
+                foreach (Thing t in portraits.Keys) {
+                    if (t != null) {
+                        Corpse c = t as Corpse;
+                        if (c != null) {
+                            //Log.Message("Corpse:" + c.Label);
+                            if (c.InnerPawn != null) {
+                                corpse.Add(c);
+                            }
+                        }
+                    }
+                }
+                foreach (Corpse c in corpse) {
+                    portraits[c.InnerPawn] = new PortraitData(portraits[c], c.InnerPawn);
+                    //Log.Message("Set Colonist Key:" + c.InnerPawn.ToStringSafe());
+                    portraits.Remove(c);
+                }
+            }
             if (Scribe.mode == LoadSaveMode.PostLoadInit) {
                 Refresh();
             }

@@ -3,6 +3,7 @@ using HarmonyLib;
 using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -90,6 +91,17 @@ namespace DetailPortraits.Data {
             Scribe_Collections.Look(ref drawingConditions, "drawingConditions", LookMode.Deep);
             Scribe_Deep.Look(ref textureData, "textureData");
             Scribe_Values.Look(ref localPosition, "localPosition");
+            float x = 0, y = 0;
+            if (Scribe.mode == LoadSaveMode.Saving) {
+                x = localPosition.x;
+                y = localPosition.y;
+            }
+            Scribe_Values.Look(ref x, "localPositionX", localPosition.x, true);
+            Scribe_Values.Look(ref y, "localPositionY", localPosition.y, true);
+            if (Scribe.mode == LoadSaveMode.LoadingVars) {
+                localPosition.x = x;
+                localPosition.y = y;
+            }
             Scribe_Values.Look(ref localScale, "localScale");
             Scribe_Values.Look(ref localScaleH, "localScaleH", localScale);
             Scribe_Values.Look(ref suspended, "suspended");

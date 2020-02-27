@@ -78,7 +78,7 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            InspirationDef def = p.InspirationDef;
+            InspirationDef def = p?.InspirationDef;
             if (def != null) {
                 yield return def.defName;
             }

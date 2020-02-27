@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -47,12 +48,15 @@ namespace DetailPortraits.Data {
             this.globalPosition = src.globalPosition;
             this.globalScale = src.globalScale;
             this.globalScaleH = src.globalScaleH;
-            this.layers = new List<LayerData>(src.layers);
+            this.layers = src.layers.ConvertAll(layer => new LayerData(layer));
             this.refreshTick = src.refreshTick;
             this.hideIcon = src.hideIcon;
         }
 
         public void RefreshRenderableLayers() {
+            if (this.pawn != null) {
+
+            }
             List<int> filledLayerNumbers = new List<int>();
             this.cacheRenderableLayers = new List<LayerData>();
             foreach (LayerData layer in this.layers) {
@@ -95,6 +99,17 @@ namespace DetailPortraits.Data {
         public void ExposeData() {
             Scribe_Values.Look(ref renderMode, "renderMode");
             Scribe_Values.Look(ref globalPosition, "globalPosition");
+            float x = 0,y = 0;
+            if (Scribe.mode == LoadSaveMode.Saving) {
+                x = globalPosition.x;
+                y = globalPosition.y;
+            }
+            Scribe_Values.Look(ref x, "globalPositionX", globalPosition.x, true);
+            Scribe_Values.Look(ref y, "globalPositionY", globalPosition.y, true);
+            if (Scribe.mode == LoadSaveMode.LoadingVars) {
+                globalPosition.x = x;
+                globalPosition.y = y;
+            }
             Scribe_Values.Look(ref globalScale, "globalScale");
             Scribe_Values.Look(ref globalScaleH, "globalScaleH", globalScale);
             Scribe_Collections.Look(ref layers, "layers", LookMode.Deep);

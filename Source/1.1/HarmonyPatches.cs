@@ -26,7 +26,6 @@ namespace DetailPortraits {
         }
     }
 
-    /*
     class For_Debug {
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) {
             List<CodeInstruction> cis = new List<CodeInstruction>(instructions);
@@ -45,25 +44,24 @@ namespace DetailPortraits {
             Log.Message(sb.ToString());
         }
     }
-    */
 
     class ColonistBarColonistDrawer_DrawColonist_Patch {
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) {
             List<CodeInstruction> cis = new List<CodeInstruction>(instructions);
-            //For_Debug.PrintCodeInstraction("[Before]", cis);
+            For_Debug.PrintCodeInstraction("[Before]", cis);
 
-            int insertPos = cis.FindIndex(c => (c.opcode == OpCodes.Brfalse_S && c.operand != null && c.operand.GetType() == typeof(Label) && $"Label{((Label)c.operand).GetHashCode()}" == "Label14"));
+            int insertPos = cis.FindIndex(c => (c.opcode == OpCodes.Brfalse_S && c.operand != null && c.operand.GetType() == typeof(Label) && $"Label{((Label)c.operand).GetHashCode()}" == "Label15"));
             List<CodeInstruction> injections = new List<CodeInstruction> {
                 new CodeInstruction(OpCodes.Ldarg_2),
                 new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ColonistBarColonistDrawer_DrawColonist_Patch), "CanRenderDeadMark")),
                 new CodeInstruction(cis[insertPos])
             };
             cis.InsertRange(insertPos + 1, injections);
-
+             
             foreach (CodeInstruction ci in cis) {
                 yield return ci;
             }
-            //For_Debug.PrintCodeInstraction("[After]", cis);
+            For_Debug.PrintCodeInstraction("[After]", cis);
         }
 
         private static bool CanRenderDeadMark(Pawn p) {

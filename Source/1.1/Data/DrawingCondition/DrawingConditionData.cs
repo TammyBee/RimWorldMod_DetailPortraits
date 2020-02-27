@@ -37,6 +37,9 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         private bool IsSatisfiedInternal(Pawn p) {
+            if (p == null) {
+                return lhsPreset is DCTP_IsDead;
+            }
             IEnumerable<object> lhs = lhsPreset.GetValue(p);
             if (op == DrawingConditionOperator.Equal) {
                 return lhs.Count() > 0 && lhs.First().Equals(lhsPreset.RHS.First());

@@ -1,7 +1,6 @@
 ﻿# Detail Portraits
 - 画面上部の入植者バーのポートレイトに好きな画像を表示できるようになるModです。  
 - 入植者バーのポートレイトのサイズを変更できるMod「[Custom Portraits](https://steamcommunity.com/sharedfiles/filedetails/?id=1569605867)」の導入を推奨しています。  
-- チュートリアルは「Guide」フォルダ内にあります。  
 - 詳しい説明は[こちら](https://github.com/TammyBee/RimWorldMod_DetailPortraits/wiki)。
 - 紹介動画は[こちら](https://www.nicovideo.jp/watch/sm35984080)。
 - サンプルとして設定済みのプリセット「DetailPortraits.xml」を用意しました。  

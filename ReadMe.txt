@@ -1,5 +1,7 @@
 ﻿【Detail Portraits】
 ・画面上部の入植者バーのポートレイトに好きな画像を表示できるようになるModです。
+・前提MODとして「Harmony」が必要です。
+　https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077
 ・入植者バーのポートレイトのサイズを変更できるMod「Custom Portraits」の導入を推奨しています。
 　https://steamcommunity.com/sharedfiles/filedetails/?id=1569605867
 ・詳しい説明は以下のURLにあります。
@@ -14,6 +16,10 @@
 
 
 ■更新履歴
+[2020/02/27]バグ修正
+・起動時に出るバグを修正
+・Harmonyを前提MODにしました。
+
 [2020/02/27]1.0と1.1に両対応
 ・1.0と1.1に両対応
 ・サンプルとして設定済みのプリセットと画像を追加しました。
@@ -41,10 +47,5 @@
 
 ・民火MOD | RimWorld私的wiki
 http://seesaawiki.jp/rimworld/d/%cc%b1%b2%d0%20MOD
-
-このMODはHarmony Patch Libraryを使用しています。
-
-・Harmonyスレッド | Ludeonフォーラム
-https://ludeon.com/forums/index.php?topic=29517.0
 
 "Twemoji" by Twitter, Inc and other contributors is licensed under CC-BY 4.0

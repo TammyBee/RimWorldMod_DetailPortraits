@@ -50,7 +50,7 @@ namespace DetailPortraits {
             List<CodeInstruction> cis = new List<CodeInstruction>(instructions);
             For_Debug.PrintCodeInstraction("[Before]", cis);
 
-            int insertPos = cis.FindIndex(c => (c.opcode == OpCodes.Brfalse_S && c.operand != null && c.operand.GetType() == typeof(Label) && $"Label{((Label)c.operand).GetHashCode()}" == "Label15"));
+            int insertPos = cis.FindIndex(c => (c.opcode == OpCodes.Brfalse_S && c.operand != null && c.operand.GetType() == typeof(Label) && $"Label{((Label)c.operand).GetHashCode()}" == "Label14"));
             List<CodeInstruction> injections = new List<CodeInstruction> {
                 new CodeInstruction(OpCodes.Ldarg_2),
                 new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ColonistBarColonistDrawer_DrawColonist_Patch), "CanRenderDeadMark")),

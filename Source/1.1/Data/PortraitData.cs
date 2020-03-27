@@ -16,6 +16,8 @@ namespace DetailPortraits.Data {
         public List<LayerData> layers = new List<LayerData>();
         public int refreshTick = 240;
         public bool hideIcon = false;
+        public string rootPath = "";
+
         public Pawn pawn;
 
         public int lastRefreshTick = 0;
@@ -51,18 +53,16 @@ namespace DetailPortraits.Data {
             this.layers = src.layers.ConvertAll(layer => new LayerData(layer));
             this.refreshTick = src.refreshTick;
             this.hideIcon = src.hideIcon;
+            this.rootPath = src.rootPath;
         }
 
         public void RefreshRenderableLayers() {
-            if (this.pawn != null) {
-
-            }
             List<int> filledLayerNumbers = new List<int>();
             this.cacheRenderableLayers = new List<LayerData>();
             foreach (LayerData layer in this.layers) {
                 if (!filledLayerNumbers.Contains(layer.layerNumber) && layer.CanRender(this.pawn)) {
                     filledLayerNumbers.Add(layer.layerNumber);
-                    layer.Refresh(this.globalScale, this.globalScaleH);
+                    layer.Refresh(this.globalScale, this.globalScaleH, this.rootPath);
                     this.cacheRenderableLayers.Add(layer);
                 }
             }
@@ -74,7 +74,7 @@ namespace DetailPortraits.Data {
 
         public void Render() {
             foreach (LayerData layer in RenderableLayers) {
-                layer.Render(this.globalPosition,this.globalScale, this.globalScaleH);
+                layer.Render(this.globalPosition, this.globalScale, this.globalScaleH, this.rootPath);
             }
         }
 
@@ -116,6 +116,7 @@ namespace DetailPortraits.Data {
             Scribe_Values.Look(ref refreshTick, "refreshTick");
             Scribe_References.Look(ref pawn, "pawn");
             Scribe_Values.Look(ref hideIcon, "hideIcon", false);
+            Scribe_Values.Look(ref rootPath, "rootPath", ""); 
 
             Scribe_Values.Look(ref lastRefreshTick, "lastRefreshTick");
 

@@ -63,16 +63,23 @@ namespace DetailPortraits.Data {
             return drawingConditions.All(c => c.IsSatisfied(p));
         }
 
-        public void Render(Vector2 globalPosition, float globalScale, float globalScaleH) {
+        public void Render(Vector2 globalPosition, float globalScale, float globalScaleH, string rootPath) {
             Vector2 position = globalPosition + this.localPosition;
             float scale = globalScale * this.localScale;
             float scaleH = globalScaleH * this.localScaleH;
 
-            Graphic graphic = textureData.GetGraphic(scale, scaleH);
+            Graphic graphic = textureData.GetGraphic(scale, scaleH, rootPath);
             if (graphic != null) {
                 Quaternion quaternion = Quaternion.AngleAxis(0f, Vector3.up);
-                //Mesh mesh = MeshPool.humanlikeBodySet.MeshAt(Rot4.South);
-                GenDraw.DrawMeshNowOrLater(graphic.MeshAt(Rot4.South), new Vector3(position.x, LayerBaseY + layerNumber * 0.01f, position.y), quaternion, graphic.MatSingle, true);
+                Mesh mesh = null;
+                if (DetailPortraitsMod.Settings.normalizeScale) {
+                    float w = graphic.MatSingle.mainTexture.width;
+                    float h = graphic.MatSingle.mainTexture.height;
+                    mesh = MeshPool.GridPlane(new Vector2(1f * scale, (h / w) * scaleH));
+                } else {
+                    mesh = graphic.MeshAt(Rot4.South);
+                }
+                GenDraw.DrawMeshNowOrLater(mesh, new Vector3(position.x, LayerBaseY + layerNumber * 0.01f, position.y), quaternion, graphic.MatSingle, true);
             }
         }
 
@@ -81,8 +88,8 @@ namespace DetailPortraits.Data {
             GUI.DrawTextureWithTexCoords(drawRect, tex, uvRect);
         }
 
-        public void Refresh(float globalScale, float globalScaleH) {
-            textureData.RefreshGraphic(this.localScale * globalScale, this.localScaleH * globalScaleH);
+        public void Refresh(float globalScale, float globalScaleH, string rootPath) {
+            textureData.RefreshGraphic(this.localScale * globalScale, this.localScaleH * globalScaleH, rootPath);
         }
 
         public void ExposeData() {

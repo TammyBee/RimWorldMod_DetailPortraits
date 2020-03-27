@@ -41,6 +41,7 @@ namespace DetailPortraits {
             sb.AppendLine("DetailPortraits.Label_HideIcon".Translate() + ":" + portraitData.hideIcon);
             sb.AppendLine("DetailPortraits.Label_RefreshTick".Translate() + ":" + portraitData.refreshTick);
             sb.AppendLine("DetailPortraits.Label_Layers".Translate() + ":[" + string.Join(",", portraitData.layers.ConvertAll(l => l.layerName).ToArray()) + "]");
+            sb.AppendLine("DetailPortraits.Label_RootPath".Translate() + ":" + portraitData.rootPath);
 
             return sb.ToString();
         }

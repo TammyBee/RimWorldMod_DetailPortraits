@@ -154,6 +154,7 @@ namespace DetailPortraits.Dialog {
             bufferFilePath = Widgets.TextField(new Rect(rect.x, rect.y, 300f, 24f), bufferFilePath);
             if (Widgets.ButtonImage(new Rect(rect.x + 304f, rect.y, 24f, 24f),PortraitWidget.Plus)) {
                 layerData.textureData.texturePaths.Add(bufferFilePath);
+                layerData.textureData.RefreshCandidatePaths();
             }
 
             Rect rectFilePaths = new Rect(rect.x,rect.y + 32f, 320f, rect.height - 28f);
@@ -177,6 +178,7 @@ namespace DetailPortraits.Dialog {
             }
             if (deleteIndex != -1) {
                 layerData.textureData.texturePaths.RemoveAt(deleteIndex);
+                layerData.textureData.RefreshCandidatePaths();
             }
             Widgets.EndScrollView();
         }

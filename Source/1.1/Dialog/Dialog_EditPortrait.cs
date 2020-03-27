@@ -42,7 +42,7 @@ namespace DetailPortraits.Dialog {
 
         public override Vector2 InitialSize {
             get {
-                return new Vector2(950f, 850f);
+                return new Vector2(950f, 882f);
             }
         }
 
@@ -140,6 +140,11 @@ namespace DetailPortraits.Dialog {
                 Widgets.TextFieldNumeric(new Rect(rect2.x + 200f, rect2.y, 100f, 24f), ref PortraitData.refreshTick, ref bufferRefreshTick);
                 rect2.y += 32f;
 
+                TooltipHandler.TipRegion(new Rect(rect2.x, rect2.y, 200f, 24f), "DetailPortraits.Tooltip_Desc_RootPath".Translate());
+                Widgets.Label(new Rect(rect2.x, rect2.y, 200f, 24f), "DetailPortraits.Label_RootPath".Translate());
+                this.PortraitData.rootPath = Widgets.TextField(new Rect(rect2.x + 200f, rect2.y, 300f, 24f), this.PortraitData.rootPath);
+                rect2.y += 32f;
+
                 Widgets.DrawLineHorizontal(0f, rect2.y, rect2.width);
                 rect2.y += 4f;
                 Widgets.Label(new Rect(rect2.x, rect2.y, 320f, 24f), "DetailPortraits.Label_Layers".Translate());
@@ -180,7 +185,7 @@ namespace DetailPortraits.Dialog {
 
         private void RenderDebug() {
             foreach (LayerData layer in PortraitData.RenderableLayers) {
-                Graphic graphic = layer.textureData.GetGraphic(PortraitData.globalScale * layer.localScale, PortraitData.globalScaleH * layer.localScaleH);
+                Graphic graphic = layer.textureData.GetGraphic(PortraitData.globalScale * layer.localScale, PortraitData.globalScaleH * layer.localScaleH, this.PortraitData.rootPath);
                 Texture tex = graphic?.MatSingle?.mainTexture;
                 Widgets.DrawTextureFitted(new Rect(layer.localPosition + PortraitData.globalPosition, new Vector2(tex.width,tex.height)),tex,1f);
             }

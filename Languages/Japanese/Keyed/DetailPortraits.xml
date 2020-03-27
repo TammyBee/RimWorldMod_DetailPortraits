@@ -66,6 +66,7 @@
 	<DetailPortraits.DCTP_IsDead_Label>死亡</DetailPortraits.DCTP_IsDead_Label>
 	<DetailPortraits.DCTP_IsDowned_Label>気絶中</DetailPortraits.DCTP_IsDowned_Label>
 	<DetailPortraits.DCTP_Inspiration_Label>ひらめき</DetailPortraits.DCTP_Inspiration_Label>
+	<DetailPortraits.DCTP_JobTargetThing_Label>Jobのターゲット{0}</DetailPortraits.DCTP_JobTargetThing_Label>
 
 	<DetailPortraits.CustomDataListPostfix> etc.</DetailPortraits.CustomDataListPostfix>
 

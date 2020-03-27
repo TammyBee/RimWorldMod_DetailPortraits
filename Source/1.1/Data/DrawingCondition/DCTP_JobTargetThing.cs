@@ -53,12 +53,6 @@ namespace DetailPortraits.Data.DrawingCondition {
             }
         }
 
-        public override bool IsListLHS {
-            get {
-                return true;
-            }
-        }
-
         public override bool IsCustomType {
             get {
                 return true;

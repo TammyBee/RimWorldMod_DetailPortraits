@@ -53,6 +53,7 @@ namespace DetailPortraits.Data {
             this.layers = src.layers.ConvertAll(layer => new LayerData(layer));
             this.refreshTick = src.refreshTick;
             this.hideIcon = src.hideIcon;
+            this.rootPath = src.rootPath;
         }
 
         public void RefreshRenderableLayers() {
@@ -73,7 +74,7 @@ namespace DetailPortraits.Data {
 
         public void Render() {
             foreach (LayerData layer in RenderableLayers) {
-                layer.Render(this.globalPosition,this.globalScale, this.globalScaleH,this.rootPath);
+                layer.Render(this.globalPosition, this.globalScale, this.globalScaleH, this.rootPath);
             }
         }
 

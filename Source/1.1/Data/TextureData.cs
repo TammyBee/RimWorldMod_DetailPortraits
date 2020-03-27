@@ -13,6 +13,8 @@ namespace DetailPortraits.Data {
         private List<string> cacheCandidatePaths = new List<string>();
         private GraphicData cacheGraphicData;
 
+        private string previousRootPath = "";
+
         public List<string> CandidatePaths {
             get {
                 if (this.cacheCandidatePaths.NullOrEmpty()) {
@@ -33,21 +35,26 @@ namespace DetailPortraits.Data {
             }
         }
 
-        public Graphic GetGraphic(float scale, float scaleH) {
-            if (this.cacheGraphicData == null) {
-                RefreshGraphic(scale, scaleH);
+        public Graphic GetGraphic(float scale, float scaleH, string rootPath = "") {
+            if (this.cacheGraphicData == null || this.previousRootPath != rootPath) {
+                RefreshGraphic(scale, scaleH, rootPath);
             }
+            this.previousRootPath = rootPath;
             return this.cacheGraphicData.Graphic;
         }
 
-        public void RefreshGraphic(float scale, float scaleH) {
+        public void RefreshGraphic(float scale, float scaleH, string rootPath = "") {
+            RefreshCandidatePaths();
+
             string texturePath = CandidatePaths.RandomElement();
             this.cacheGraphicData = new GraphicData();
             this.cacheGraphicData.graphicClass = typeof(Graphic_Single);
-            this.cacheGraphicData.texPath = texturePath;
+            this.cacheGraphicData.texPath = rootPath + texturePath;
             this.cacheGraphicData.shaderType = ShaderTypeDefOf.Transparent;
             this.cacheGraphicData.drawSize = new Vector2(scale, scaleH);
             this.cacheGraphicData.color = Color.white;
+
+            this.previousRootPath = rootPath;
         }
 
         public void RefreshCandidatePaths() {

@@ -63,12 +63,12 @@ namespace DetailPortraits.Data {
             return drawingConditions.All(c => c.IsSatisfied(p));
         }
 
-        public void Render(Vector2 globalPosition, float globalScale, float globalScaleH) {
+        public void Render(Vector2 globalPosition, float globalScale, float globalScaleH, string rootPath) {
             Vector2 position = globalPosition + this.localPosition;
             float scale = globalScale * this.localScale;
             float scaleH = globalScaleH * this.localScaleH;
 
-            Graphic graphic = textureData.GetGraphic(scale, scaleH);
+            Graphic graphic = textureData.GetGraphic(scale, scaleH, rootPath);
             if (graphic != null) {
                 Quaternion quaternion = Quaternion.AngleAxis(0f, Vector3.up);
                 Mesh mesh = null;
@@ -88,8 +88,8 @@ namespace DetailPortraits.Data {
             GUI.DrawTextureWithTexCoords(drawRect, tex, uvRect);
         }
 
-        public void Refresh(float globalScale, float globalScaleH) {
-            textureData.RefreshGraphic(this.localScale * globalScale, this.localScaleH * globalScaleH);
+        public void Refresh(float globalScale, float globalScaleH, string rootPath) {
+            textureData.RefreshGraphic(this.localScale * globalScale, this.localScaleH * globalScaleH, rootPath);
         }
 
         public void ExposeData() {

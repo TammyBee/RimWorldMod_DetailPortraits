@@ -17,12 +17,14 @@
 	<DetailPortraits.Label_Scale>拡大率</DetailPortraits.Label_Scale>
 	<DetailPortraits.Label_HideIcon>アイコンを隠す</DetailPortraits.Label_HideIcon>
 	<DetailPortraits.Label_RefreshTick>更新頻度(Tick)</DetailPortraits.Label_RefreshTick>
+	<DetailPortraits.Label_RootPath>画像ファイルの基準パス</DetailPortraits.Label_RootPath>
 
 	<DetailPortraits.Label_Layers>レイヤー</DetailPortraits.Label_Layers>
 
 	<DetailPortraits.Tooltip_Desc_RenderMode>'詳細版'を選択した場合、設定した画像のみを描画し、\n'デフォルト+詳細版'を選択した場合は、入植者の画像の上に設定した画像を描画します。</DetailPortraits.Tooltip_Desc_RenderMode>
 	<DetailPortraits.Tooltip_Desc_HideIcon>睡眠時などに描画される左下のアイコンを非表示にします。</DetailPortraits.Tooltip_Desc_HideIcon>
 	<DetailPortraits.Tooltip_Desc_RefreshTick>描画する画像を更新する頻度(単位:Tick)。\n時間経過とは別に特定の条件(例:Jobの開始時)で更新することがあります。</DetailPortraits.Tooltip_Desc_RefreshTick>
+	<DetailPortraits.Tooltip_Desc_RootPath>各レイヤーで指定した画像ファイルパスの先頭に付けます。\n(例)基準パス「Portraits/Char1/」、画像ファイル「Normal」と指定した場合、「Portraits/Char1/Normal」の画像を表示する。</DetailPortraits.Tooltip_Desc_RootPath>
 
 	<!-- PortraitWidget -->
 	<DetailPortraits.Label_LayerPanelDisplayRow1>[{0}] {1}</DetailPortraits.Label_LayerPanelDisplayRow1>

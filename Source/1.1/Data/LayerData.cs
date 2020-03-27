@@ -71,8 +71,15 @@ namespace DetailPortraits.Data {
             Graphic graphic = textureData.GetGraphic(scale, scaleH);
             if (graphic != null) {
                 Quaternion quaternion = Quaternion.AngleAxis(0f, Vector3.up);
-                //Mesh mesh = MeshPool.humanlikeBodySet.MeshAt(Rot4.South);
-                GenDraw.DrawMeshNowOrLater(graphic.MeshAt(Rot4.South), new Vector3(position.x, LayerBaseY + layerNumber * 0.01f, position.y), quaternion, graphic.MatSingle, true);
+                Mesh mesh = null;
+                if (DetailPortraitsMod.Settings.normalizeScale) {
+                    float w = graphic.MatSingle.mainTexture.width;
+                    float h = graphic.MatSingle.mainTexture.height;
+                    mesh = MeshPool.GridPlane(new Vector2(1f * scale, (h / w) * scaleH));
+                } else {
+                    mesh = graphic.MeshAt(Rot4.South);
+                }
+                GenDraw.DrawMeshNowOrLater(mesh, new Vector3(position.x, LayerBaseY + layerNumber * 0.01f, position.y), quaternion, graphic.MatSingle, true);
             }
         }
 

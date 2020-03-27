@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 	<!-- Dialog_EditPortrait -->
+	<DetailPortraits.NormalizeScale>拡大率を正規化する</DetailPortraits.NormalizeScale>
+
+	<!-- Dialog_EditPortrait -->
 	<DetailPortraits.Dialog_EditPortraitTitle>{0}のポートレイト設定</DetailPortraits.Dialog_EditPortraitTitle>
 
 	<DetailPortraits.OpenPresetListDialog>プリセット</DetailPortraits.OpenPresetListDialog>

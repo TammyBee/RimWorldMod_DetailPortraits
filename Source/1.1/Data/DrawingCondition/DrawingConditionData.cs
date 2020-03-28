@@ -42,7 +42,7 @@ namespace DetailPortraits.Data.DrawingCondition {
             }
             IEnumerable<object> lhs = lhsPreset.GetValue(p);
             if (op == DrawingConditionOperator.Equal) {
-                return lhs.Count() > 0 && lhs.First().Equals(lhsPreset.RHS.First());
+                return !lhs.EnumerableNullOrEmpty() && !lhsPreset.RHS.EnumerableNullOrEmpty() && lhs.First().Equals(lhsPreset.RHS.First());
             } else if (op == DrawingConditionOperator.GT) {
                 float lhsValue = (float)lhs.First();
                 float rhsValue = (float)lhsPreset.RHS.First();
@@ -60,13 +60,13 @@ namespace DetailPortraits.Data.DrawingCondition {
                 float rhsValue = (float)lhsPreset.RHS.First();
                 return lhsValue <= rhsValue;
             } else if (op == DrawingConditionOperator.In) {
-                return lhsPreset.RHS.Contains(lhs.First());
+                return !lhs.EnumerableNullOrEmpty() && !lhsPreset.RHS.EnumerableNullOrEmpty() && lhsPreset.RHS.Contains(lhs.First());
             } else if (op == DrawingConditionOperator.Contains) {
-                return lhsPreset.RHS.All(rhs => lhs.Contains(rhs));
+                return !lhs.EnumerableNullOrEmpty() && !lhsPreset.RHS.EnumerableNullOrEmpty() && lhsPreset.RHS.All(rhs => lhs.Contains(rhs));
             } else if (op == DrawingConditionOperator.Shared) {
-                return lhsPreset.RHS.SharesElementWith(lhs);
+                return !lhs.EnumerableNullOrEmpty() && !lhsPreset.RHS.EnumerableNullOrEmpty() && lhsPreset.RHS.SharesElementWith(lhs);
             } else if (op == DrawingConditionOperator.IsEmpty) {
-                return lhs.Count() == 0;
+                return lhs.EnumerableNullOrEmpty();
             }
             return true;
         }

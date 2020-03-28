@@ -72,6 +72,13 @@
 	<DetailPortraits.DCTP_IsDowned_Label>気絶中</DetailPortraits.DCTP_IsDowned_Label>
 	<DetailPortraits.DCTP_Inspiration_Label>ひらめき</DetailPortraits.DCTP_Inspiration_Label>
 	<DetailPortraits.DCTP_JobTargetThing_Label>Jobのターゲット{0}</DetailPortraits.DCTP_JobTargetThing_Label>
+	<DetailPortraits.DCTP_HasMinorBreakRisk_Label>精神崩壊リスク(軽度)</DetailPortraits.DCTP_HasMinorBreakRisk_Label>
+	<DetailPortraits.DCTP_HasMajorBreakRisk_Label>精神崩壊リスク(重度)</DetailPortraits.DCTP_HasMajorBreakRisk_Label>
+	<DetailPortraits.DCTP_HasExtremeBreakRisk_Label>精神崩壊リスク(致命的)</DetailPortraits.DCTP_HasExtremeBreakRisk_Label>
+	<DetailPortraits.DCTP_IsHungry_Label>空腹</DetailPortraits.DCTP_IsHungry_Label>
+	<DetailPortraits.DCTP_IsBored_Label>退屈</DetailPortraits.DCTP_IsBored_Label>
+	<DetailPortraits.DCTP_NeedsRescue_Label>救助が必要</DetailPortraits.DCTP_NeedsRescue_Label>
+	<DetailPortraits.DCTP_NeedsTends_Label>治療が必要</DetailPortraits.DCTP_NeedsTends_Label>
 
 	<DetailPortraits.CustomDataListPostfix> etc.</DetailPortraits.CustomDataListPostfix>
 

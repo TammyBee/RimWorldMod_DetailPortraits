@@ -21,6 +21,12 @@ namespace DetailPortraits.Data.DrawingCondition {
             }
         }
 
+        public override string GroupStringKey {
+            get {
+                return "DetailPortraits.GroupDCTP_JobTargetThing";
+            }
+        }
+
         public override bool AllowEmpty {
             get {
                 return true;

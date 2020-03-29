@@ -13,6 +13,12 @@ namespace DetailPortraits.Data.DrawingCondition {
             }
         }
 
+        public override string GroupStringKey {
+            get {
+                return "DetailPortraits.GroupDCTP_HasBreakRisk";
+            }
+        }
+
         public override DrawingConditionTermPreset Copy {
             get {
                 return new DCTP_HasMinorBreakRisk();

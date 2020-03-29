@@ -79,6 +79,14 @@
 	<DetailPortraits.DCTP_IsBored_Label>退屈</DetailPortraits.DCTP_IsBored_Label>
 	<DetailPortraits.DCTP_NeedsRescue_Label>救助が必要</DetailPortraits.DCTP_NeedsRescue_Label>
 	<DetailPortraits.DCTP_NeedsTends_Label>治療が必要</DetailPortraits.DCTP_NeedsTends_Label>
+	<DetailPortraits.DCTP_CapacityLevel_Label>{0}</DetailPortraits.DCTP_CapacityLevel_Label>
+
+	<!-- DCTP_Group -->
+	<DetailPortraits.GroupDCTPBase>{0}   &gt;</DetailPortraits.GroupDCTPBase>
+	<DetailPortraits.GroupDCTP_HasBreakRisk>精神崩壊リスク</DetailPortraits.GroupDCTP_HasBreakRisk>
+	<DetailPortraits.GroupDCTP_JobTargetThing>Jobのターゲット</DetailPortraits.GroupDCTP_JobTargetThing>
+	<DetailPortraits.GroupDCTP_Need>欲求</DetailPortraits.GroupDCTP_Need>
+	<DetailPortraits.GroupDCTP_CapacityLevel>能力</DetailPortraits.GroupDCTP_CapacityLevel>
 
 	<DetailPortraits.CustomDataListPostfix> etc.</DetailPortraits.CustomDataListPostfix>
 

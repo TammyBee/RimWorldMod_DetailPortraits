@@ -24,6 +24,12 @@ namespace DetailPortraits.Data.DrawingCondition {
             }
         }
 
+        public virtual string GroupStringKey {
+            get {
+                return null;
+            }
+        }
+
         public abstract Type LHS_Type { get; }
 
         public virtual bool IsListLHS {

@@ -74,15 +74,7 @@ namespace DetailPortraits.Dialog {
 
             Widgets.Label(new Rect(rect2.x, rect2.y, 120f, 24), "DetailPortraits.Label_LHS".Translate());
             if (Widgets.ButtonText(new Rect(rect2.x + 120f, rect2.y, 240f, 24), data.lhsPreset.PresetLabel)) {
-                List<FloatMenuOption> listFloatMenu = new List<FloatMenuOption>();
-                foreach (DrawingConditionTermPreset preset in DrawingConditionTermPresetManager.Presets) {
-                    DrawingConditionTermPreset localPreset = preset;
-                    listFloatMenu.Add(new FloatMenuOption(localPreset.PresetLabel, delegate {
-                        data.lhsPreset = localPreset.Copy;
-                        RefreshOperator();
-                    }, MenuOptionPriority.Default, null, null, 0f, null, null));
-                }
-                Find.WindowStack.Add(new FloatMenu(listFloatMenu));
+                Find.WindowStack.Add(new FloatMenu(GetFloatMenuOptions()));
             }
             rect2.y += 32f;
 
@@ -145,6 +137,37 @@ namespace DetailPortraits.Dialog {
 
             Widgets.Label(new Rect(rect2.x, rect2.y, 120f, 24), "DetailPortraits.Label_Reversed".Translate());
             Widgets.Checkbox(new Vector2(rect2.x + 120f, rect2.y), ref data.isReversed);
+        }
+
+        private List<FloatMenuOption> GetFloatMenuOptions() {
+            List<FloatMenuOption> listFloatMenu = new List<FloatMenuOption>();
+            HashSet<string> setGroupStringKeys = new HashSet<string>();
+            foreach (DrawingConditionTermPreset preset in DrawingConditionTermPresetManager.Presets) {
+                DrawingConditionTermPreset localPreset = preset;
+                if (localPreset.GroupStringKey.NullOrEmpty()) {
+                    listFloatMenu.Add(new FloatMenuOption(localPreset.PresetLabel, delegate {
+                        data.lhsPreset = localPreset.Copy;
+                        RefreshOperator();
+                    }, MenuOptionPriority.Default, null, null, 0f, null, null));
+                } else if (!setGroupStringKeys.Contains(localPreset.GroupStringKey)) {
+                    string label = "DetailPortraits.GroupDCTPBase".Translate(localPreset.GroupStringKey.Translate());
+                    listFloatMenu.Add(new FloatMenuOption(label, delegate {
+                        List<FloatMenuOption> listFloatMenu2 = new List<FloatMenuOption>();
+                        foreach (DrawingConditionTermPreset preset2 in DrawingConditionTermPresetManager.Presets) {
+                            DrawingConditionTermPreset localPreset2 = preset2;
+                            if (localPreset2.GroupStringKey == localPreset.GroupStringKey) {
+                                listFloatMenu2.Add(new FloatMenuOption(localPreset2.PresetLabel, delegate {
+                                    data.lhsPreset = localPreset2.Copy;
+                                    RefreshOperator();
+                                }, MenuOptionPriority.Default, null, null, 0f, null, null));
+                            }
+                        }
+                        Find.WindowStack.Add(new FloatMenu(listFloatMenu2));
+                    }, MenuOptionPriority.Default, null, null, 0f, null, null));
+                    setGroupStringKeys.Add(localPreset.GroupStringKey);
+                }
+            }
+            return listFloatMenu;
         }
 
         private void DrawRHSField(Rect rect) {

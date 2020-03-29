@@ -30,6 +30,7 @@ namespace DetailPortraits {
                     comp.Refresh();
                 }
             }
+            listing_Standard.CheckboxLabeled("DetailPortraits.DCTPGrouped".Translate(), ref Settings.dctpGrouped);
             listing_Standard.End();
         }
 

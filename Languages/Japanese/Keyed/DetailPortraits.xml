@@ -38,7 +38,7 @@
 
 	<DetailPortraits.Tooltip_Desc_LayerNumber>小さいほど奥に、大きいほど手前に描画されます。\n</DetailPortraits.Tooltip_Desc_LayerNumber>
 	<DetailPortraits.Tooltip_Desc_LayerName>レイヤーの名前です。\n設定しなくても大丈夫です。</DetailPortraits.Tooltip_Desc_LayerName>
-	<DetailPortraits.Tooltip_Desc_LayerFilePaths>このModの'Textures'フォルダからの相対パスを指定してください。\n拡張子は必要ありません。\n複数のファイルパスを指定した場合は、描画する画像をその中からランダムに選びます。</DetailPortraits.Tooltip_Desc_LayerFilePaths>
+	<DetailPortraits.Tooltip_Desc_LayerFilePaths>このModの'Textures'フォルダからの相対パスを指定してください。\n拡張子は必要ありません。\n先頭に「!」を付けた場合、画像ファイルの基準パスが先頭につきません。\n複数のファイルパスを指定した場合は、描画する画像をその中からランダムに選びます。</DetailPortraits.Tooltip_Desc_LayerFilePaths>
 	<DetailPortraits.Tooltip_Desc_DrawingConditions>ここで指定した条件をすべて満たした場合、このレイヤーの画像が描画されます。</DetailPortraits.Tooltip_Desc_DrawingConditions>
 
 	<!-- Dialog_EditDrawingCondition -->

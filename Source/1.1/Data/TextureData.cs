@@ -49,7 +49,11 @@ namespace DetailPortraits.Data {
             string texturePath = CandidatePaths.RandomElement();
             this.cacheGraphicData = new GraphicData();
             this.cacheGraphicData.graphicClass = typeof(Graphic_Single);
-            this.cacheGraphicData.texPath = rootPath + texturePath;
+            if (texturePath.StartsWith("!")) {
+                this.cacheGraphicData.texPath = texturePath.Substring(1);
+            } else {
+                this.cacheGraphicData.texPath = rootPath + texturePath;
+            }
             this.cacheGraphicData.shaderType = ShaderTypeDefOf.Transparent;
             this.cacheGraphicData.drawSize = new Vector2(scale, scaleH);
             this.cacheGraphicData.color = Color.white;

@@ -57,6 +57,9 @@ namespace DetailPortraits.Data {
             if (this.suspended) {
                 return false;
             }
+            if (this.textureData.CandidatePaths.NullOrEmpty()) {
+                return false;
+            }
             if (drawingConditions.NullOrEmpty()) {
                 return true;
             }

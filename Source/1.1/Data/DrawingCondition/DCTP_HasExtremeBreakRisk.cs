@@ -21,7 +21,7 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                return new DCTP_HasMinorBreakRisk();
+                return new DCTP_HasExtremeBreakRisk();
             }
         }
 

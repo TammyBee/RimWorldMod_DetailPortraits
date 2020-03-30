@@ -75,7 +75,7 @@
 	<DetailPortraits.DCTP_AllThoughts_Label>全心情一覧</DetailPortraits.DCTP_AllThoughts_Label>
 	<DetailPortraits.DCTP_AllThoughtStages_Label>全心情一覧(段階付き)</DetailPortraits.DCTP_AllThoughtStages_Label>
 	<DetailPortraits.DCTP_BleedRate_Label>出血量</DetailPortraits.DCTP_BleedRate_Label>
-	<DetailPortraits.DCTP_Random_Label>乱数</DetailPortraits.DCTP_Random_Label>
+	<DetailPortraits.DCTP_Random_Label>乱数 (非推奨)</DetailPortraits.DCTP_Random_Label>
 	<DetailPortraits.DCTP_IsDrafted_Label>徴用中</DetailPortraits.DCTP_IsDrafted_Label>
 	<DetailPortraits.DCTP_IsDead_Label>死亡</DetailPortraits.DCTP_IsDead_Label>
 	<DetailPortraits.DCTP_IsDowned_Label>気絶中</DetailPortraits.DCTP_IsDowned_Label>

@@ -12,6 +12,19 @@
 
 
 ## 更新履歴
+[2020/0X/XX]機能追加(1.0.5)  
+・描画条件「精神崩壊リスク」を追加  
+・描画条件「空腹」を追加  
+・描画条件「退屈」を追加  
+・描画条件「治療が必要」を追加  
+・描画条件「救助が必要」を追加  
+・描画条件「能力」を追加  
+・描画条件「現在時刻(時)」を追加  
+・一部の描画条件をグループ化しました。  
+・レイヤーの画像ファイルのパスの先頭に「!」を付けた場合、基準パスを先頭に追加しないようにしました。  
+・MOD設定を追加  
+・描画条件「精神状態」の演算子「is empty」のバグを修正  
+
 [2020/03/28]機能追加(1.0.4)  
 ・描画条件「Jobのターゲット」を追加  
 ・ポートレイト設定「画像ファイルの基準パス」を追加  
@@ -45,9 +58,10 @@
 
 
 ## その他  
-質問、不具合などがあれば、Twitter(@tammybee_tmb)か以下のページのコメント欄にて報告をお願いします。  
+質問、不具合などがあれば、Twitter(@tammybee_tmb)か以下のページのコメント欄、RimMod相談所の#民火modにて報告をお願いします。
 
-- [民火MOD | RimWorld私的wiki](http://seesaawiki.jp/rimworld/d/%cc%b1%b2%d0%20MOD)  
+- [民火MOD - RimWorld私的wiki](http://seesaawiki.jp/rimworld/d/%cc%b1%b2%d0%20MOD)  
+- [RimMod相談所 - Discord](https://discordapp.com/invite/WfVjNxs)  
 
 このMODはHarmony Patch Libraryを使用しています。  
 

@@ -68,6 +68,8 @@ namespace DetailPortraits.Dialog {
             this.bufferRefreshTick = PortraitData.refreshTick.ToString();
 
             this.scrollPosition = Vector2.zero;
+
+            this.draggable = true;
         }
 
         private string GetTitle() {

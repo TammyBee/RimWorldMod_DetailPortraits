@@ -78,6 +78,9 @@ namespace DetailPortraits.Dialog {
             }
             rect2.y += 32f;
 
+            data.lhsPreset.ArgumentsPanel(rect2);
+            rect2.y += data.lhsPreset.ArgumentsPanelHeight;
+
             if (!data.lhsPreset.IsBoolPreset) {
                 Widgets.Label(new Rect(rect2.x, rect2.y, 120f, 24), "DetailPortraits.Label_Operator".Translate());
                 if (Widgets.ButtonText(new Rect(rect2.x + 120f, rect2.y, 240f, 24), data.op.GetLabel())) {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 using Verse;
 
 namespace DetailPortraits.Data.DrawingCondition {
@@ -44,6 +45,12 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public abstract string PresetLabel { get; }
 
+        public virtual string PresetLabelInLayerList { 
+            get {
+                return this.PresetLabel;
+            }
+        }
+
         public virtual bool IsCustomType {
             get {
                 return false;
@@ -71,6 +78,12 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public abstract DrawingConditionTermPreset Copy { get; }
+
+        public virtual int ArgumentsPanelHeight {
+            get {
+                return 0;
+            }
+        }
 
         public void ExposeData() {
             ExposeDataInternal();
@@ -107,7 +120,7 @@ namespace DetailPortraits.Data.DrawingCondition {
             return def.defName;
         }
 
-        public virtual string ConvertObjectToString(Object obj) {
+        public virtual string ConvertObjectToString(System.Object obj) {
             if (obj == null) {
                 return "";
             }
@@ -116,6 +129,10 @@ namespace DetailPortraits.Data.DrawingCondition {
                 return def.defName;
             }
             return obj.ToString();
+        }
+
+        public virtual void ArgumentsPanel(Rect rect) {
+
         }
     }
 }

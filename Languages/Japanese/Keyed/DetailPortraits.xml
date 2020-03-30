@@ -90,6 +90,9 @@
 	<DetailPortraits.DCTP_NeedsTends_Label>治療が必要</DetailPortraits.DCTP_NeedsTends_Label>
 	<DetailPortraits.DCTP_CapacityLevel_Label>{0}</DetailPortraits.DCTP_CapacityLevel_Label>
 	<DetailPortraits.DCTP_Hour_Label>現在時刻(時)</DetailPortraits.DCTP_Hour_Label>
+	<DetailPortraits.DCTP_MTB_Label>平均発生間隔(日)</DetailPortraits.DCTP_MTB_Label>
+	<DetailPortraits.DCTP_MTB_LabelInLayerList>平均発生間隔:{0}日</DetailPortraits.DCTP_MTB_LabelInLayerList>
+	<DetailPortraits.DCTP_MTB_FloatFieldDay>日数</DetailPortraits.DCTP_MTB_FloatFieldDay>
 
 	<!-- DCTP_Group -->
 	<DetailPortraits.GroupDCTPBase>{0}   &gt;</DetailPortraits.GroupDCTPBase>

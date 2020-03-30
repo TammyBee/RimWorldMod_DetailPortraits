@@ -80,7 +80,7 @@ namespace DetailPortraits.Data.DrawingCondition {
             if (op == DrawingConditionOperator.IsEmpty) {
                 rhsLabel = "";
             }
-            return "DetailPortraits.DrawingConditionDataLabel".Translate(lhsPreset.PresetLabel, op.GetLabel(), rhsLabel, strReverse);
+            return "DetailPortraits.DrawingConditionDataLabel".Translate(lhsPreset.PresetLabelInLayerList, op.GetLabel(), rhsLabel, strReverse);
         }
 
         public void ExposeData() {

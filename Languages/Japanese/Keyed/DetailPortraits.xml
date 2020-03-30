@@ -81,6 +81,7 @@
 	<DetailPortraits.DCTP_NeedsRescue_Label>救助が必要</DetailPortraits.DCTP_NeedsRescue_Label>
 	<DetailPortraits.DCTP_NeedsTends_Label>治療が必要</DetailPortraits.DCTP_NeedsTends_Label>
 	<DetailPortraits.DCTP_CapacityLevel_Label>{0}</DetailPortraits.DCTP_CapacityLevel_Label>
+	<DetailPortraits.DCTP_Hour_Label>現在時刻(時)</DetailPortraits.DCTP_Hour_Label>
 
 	<!-- DCTP_Group -->
 	<DetailPortraits.GroupDCTPBase>{0}   &gt;</DetailPortraits.GroupDCTPBase>

@@ -148,6 +148,11 @@ namespace DetailPortraits.Dialog {
             TooltipHandler.TipRegion(new Rect(rect.x + 4f, rect.y + 280f, 200f, 24f), "DetailPortraits.Tooltip_Desc_DrawingConditions".Translate());
             Widgets.Label(new Rect(rect.x + 4f, rect.y + 280f, 200f, 24f), "DetailPortraits.Label_DrawingConditions".Translate());
             DrawDCEditor(new Rect(rect.x + 208f, rect.y + 280f, 400f, 120f), ref layerData);
+
+            Widgets.Label(new Rect(rect.x + 4f, rect.y + 410f, 200f, 24f), "DetailPortraits.Label_OpenLayerDetail".Translate());
+            if(Widgets.ButtonText(new Rect(rect.x + 208f, rect.y + 410f, 50f, 24f), "DetailPortraits.Button_OpenLayerDetail".Translate())) {
+                Find.WindowStack.Add(new Dialog_EditLayerDetail(layerData));
+            }
         }
 
         public static void DrawFilePathsEditor(Rect rect, ref LayerData layerData) {

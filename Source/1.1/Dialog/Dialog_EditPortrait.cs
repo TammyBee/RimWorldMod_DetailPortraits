@@ -42,7 +42,13 @@ namespace DetailPortraits.Dialog {
 
         public override Vector2 InitialSize {
             get {
-                return new Vector2(950f, 882f);
+                return new Vector2(950f, 462f + LayerEditorHeight);
+            }
+        }
+
+        private float LayerEditorHeight {
+            get {
+                return PortraitWidget.LayerPanelHeight * 7 + 28f;
             }
         }
 
@@ -169,7 +175,7 @@ namespace DetailPortraits.Dialog {
                 rect2.y += 32f;
 
                 Rect viewRect = new Rect(2f, rect2.y, rect2.width / 3, PortraitData.layers.Count * PortraitWidget.LayerPanelHeight);
-                Rect layerListRect = new Rect(rect2.x + 3f, rect2.y, viewRect.width + 16f, PortraitWidget.LayerPanelHeight * 7);
+                Rect layerListRect = new Rect(rect2.x + 3f, rect2.y, viewRect.width + 16f, LayerEditorHeight);
                 DrawLayerList(layerListRect, viewRect);
 
                 Rect layerEditorRect = new Rect(12f + layerListRect.width, rect2.y, rect2.width - layerListRect.width - 30f, layerListRect.height);

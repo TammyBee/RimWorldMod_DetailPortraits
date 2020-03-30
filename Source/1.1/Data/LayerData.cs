@@ -21,8 +21,12 @@ namespace DetailPortraits.Data {
         public float localScale = 1f;
         public float localScaleH = 1f;
         public bool suspended;
+        public int lockLayerDurationTick = 0;
 
         public PortraitData parent;
+
+        private int lastValidatedTick = 0;
+        private bool previousCanRender = false;
 
         public bool IsAvailable {
             get {
@@ -51,19 +55,27 @@ namespace DetailPortraits.Data {
             this.localScale = src.localScale;
             this.localScaleH = src.localScaleH;
             this.suspended = src.suspended;
+            this.lockLayerDurationTick = src.lockLayerDurationTick;
         }
 
         public bool CanRender(Pawn p) {
+            bool result = false;
             if (this.suspended) {
-                return false;
+                result = false;
+            } else if (this.textureData.CandidatePaths.NullOrEmpty()) {
+                result = false;
+            } else if (drawingConditions.NullOrEmpty()) {
+                result = true;
+            } else if (Find.TickManager.TicksGame - this.lastValidatedTick <= this.lockLayerDurationTick) {
+                result = true;
+            } else if (drawingConditions.All(c => c.IsSatisfied(p))) {
+                result = true;
             }
-            if (this.textureData.CandidatePaths.NullOrEmpty()) {
-                return false;
+            if (this.previousCanRender != result && result) {
+                this.lastValidatedTick = Find.TickManager.TicksGame;
             }
-            if (drawingConditions.NullOrEmpty()) {
-                return true;
-            }
-            return drawingConditions.All(c => c.IsSatisfied(p));
+            this.previousCanRender = result;
+            return result;
         }
 
         public void Render(Vector2 globalPosition, float globalScale, float globalScaleH, string rootPath) {
@@ -115,6 +127,8 @@ namespace DetailPortraits.Data {
             Scribe_Values.Look(ref localScale, "localScale");
             Scribe_Values.Look(ref localScaleH, "localScaleH", localScale);
             Scribe_Values.Look(ref suspended, "suspended");
+            Scribe_Values.Look(ref lockLayerDurationTick, "lockLayerDurationTick");
+            Scribe_Values.Look(ref lastValidatedTick, "lastValidatedTick");
         }
 
         public override string ToString() {

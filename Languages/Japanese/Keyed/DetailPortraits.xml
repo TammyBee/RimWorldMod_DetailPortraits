@@ -41,12 +41,20 @@
 	<DetailPortraits.Tooltip_Desc_LayerFilePaths>このModの'Textures'フォルダからの相対パスを指定してください。\n拡張子は必要ありません。\n先頭に「!」を付けた場合、画像ファイルの基準パスが先頭につきません。\n複数のファイルパスを指定した場合は、描画する画像をその中からランダムに選びます。</DetailPortraits.Tooltip_Desc_LayerFilePaths>
 	<DetailPortraits.Tooltip_Desc_DrawingConditions>ここで指定した条件をすべて満たした場合、このレイヤーの画像が描画されます。</DetailPortraits.Tooltip_Desc_DrawingConditions>
 
+	<DetailPortraits.Label_OpenLayerDetail>詳細設定</DetailPortraits.Label_OpenLayerDetail>
+	<DetailPortraits.Button_OpenLayerDetail>開く</DetailPortraits.Button_OpenLayerDetail>
+
 	<!-- Dialog_EditDrawingCondition -->
 	<DetailPortraits.Dialog_EditDrawingConditionTitle>描画条件設定</DetailPortraits.Dialog_EditDrawingConditionTitle>
 	<DetailPortraits.Label_LHS>左辺</DetailPortraits.Label_LHS>
 	<DetailPortraits.Label_Operator>演算子</DetailPortraits.Label_Operator>
 	<DetailPortraits.Label_RHS>右辺</DetailPortraits.Label_RHS>
 	<DetailPortraits.Label_Reversed>フラグ反転</DetailPortraits.Label_Reversed>
+
+	<!-- Dialog_EditLayerDetail -->
+	<DetailPortraits.Dialog_EditLayerDetail_Title>レイヤー{0}の詳細設定</DetailPortraits.Dialog_EditLayerDetail_Title>
+	<Dialog_EditLayerDetail.LockLayerDurationTick>このレイヤーの描画をロックする時間(Tick)</Dialog_EditLayerDetail.LockLayerDurationTick>
+	<Dialog_EditLayerDetail.LockLayerDurationTick_Tip>すべての描画条件を満たしたときからこのTick数の間は、すべての描画条件を満たさなくてもすべての条件を満たしているとする。\nしかし、これより上の同じレイヤー番号のレイヤーが描画された場合は描画されない。</Dialog_EditLayerDetail.LockLayerDurationTick_Tip>
 
 	<!-- DrawingConditionData -->
 	<!-- 0:LHS,1:operator,2:RHS,3:ReverseFlag(if true) -->

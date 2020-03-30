@@ -62,8 +62,6 @@ namespace DetailPortraits.Data {
             bool result = false;
             if (this.suspended) {
                 result = false;
-            } else if (false && this.textureData.CandidatePaths.NullOrEmpty()) {
-                result = false;
             } else if (drawingConditions.NullOrEmpty()) {
                 result = true;
             } else if (Find.TickManager.TicksGame - this.lastValidatedTick <= this.lockLayerDurationTick) {

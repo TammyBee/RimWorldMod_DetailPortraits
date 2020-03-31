@@ -48,7 +48,7 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override IEnumerable<object> GetValue(Pawn p) {
             int checkDuration = Find.TickManager.TicksGame - p.GetPortraitData().lastRefreshTick;
-            if (checkDuration <= 0) {
+            if (checkDuration <= 0 || day <= 0f) {
                 yield return false;
             } else {
                 yield return Rand.MTBEventOccurs(day, 60000f, checkDuration);

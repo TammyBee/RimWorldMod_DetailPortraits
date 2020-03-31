@@ -62,5 +62,9 @@ namespace DetailPortraits.Data.DrawingCondition {
                 this.day = floatFieldDay.Value;
             }
         }
+
+        public override void ExposeDataInternal() {
+            Scribe_Values.Look(ref this.day, "mtbDays", 1f);
+        }
     }
 }

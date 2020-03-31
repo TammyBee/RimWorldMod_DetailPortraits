@@ -58,6 +58,7 @@ namespace DetailPortraits.Data {
 
         public void RefreshRenderableLayers() {
             List<int> filledLayerNumbers = new List<int>();
+            List<LayerData> previousRenderableLayers = new List<LayerData>(this.cacheRenderableLayers);
             this.cacheRenderableLayers = new List<LayerData>();
             foreach (LayerData layer in this.layers) {
                 if (!filledLayerNumbers.Contains(layer.layerNumber) && layer.CanRender(this.pawn)) {
@@ -67,9 +68,33 @@ namespace DetailPortraits.Data {
                 }
             }
             this.cacheRenderableLayers.SortBy(layer => layer.layerNumber);
+
+            bool onChangeLayers = false;
+            foreach (LayerData layer in this.cacheRenderableLayers) {
+                if (!previousRenderableLayers.Contains(layer)) {
+                    Log.Message("Add " + layer.layerName);
+                    layer.OnChangeCanRender(true);
+                    onChangeLayers = true;
+                }
+            }
+            foreach (LayerData layer in previousRenderableLayers) {
+                if (!this.cacheRenderableLayers.Contains(layer)) {
+                    Log.Message("Remove " + layer.layerName);
+                    layer.OnChangeCanRender(false);
+                    onChangeLayers = true;
+                }
+            }
+            if (onChangeLayers) {
+                OnChangeRenderableLayers(previousRenderableLayers);
+            }
+
             PortraitsCache.SetDirty(pawn);
             //Log.Message("[RefreshRenderableLayers]\n" + string.Join("\n", this.cacheRenderableLayers.ConvertAll(l => l.ToString()).ToArray()));
             this.lastRefreshTick = Find.TickManager.TicksGame;
+        }
+
+        public virtual void OnChangeRenderableLayers(List<LayerData> previousRenderableLayers) {
+
         }
 
         public void Render() {

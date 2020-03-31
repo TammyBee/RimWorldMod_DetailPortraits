@@ -28,9 +28,21 @@ namespace DetailPortraits.Data {
         private int lastValidatedTick = 0;
         private bool previousCanRender = false;
 
+        // 連携MOD用
+        private Dictionary<string, string> extraStorage = new Dictionary<string, string>();
+
         public bool IsAvailable {
             get {
                 return drawingConditions.NullOrEmpty() || drawingConditions.All(dc => dc.IsAvailable);
+            }
+        }
+
+        public Dictionary<string, string> ExtraStorage {
+            get {
+                if (this.extraStorage == null) {
+                    this.extraStorage = new Dictionary<string, string>();
+                }
+                return this.extraStorage;
             }
         }
 
@@ -74,6 +86,10 @@ namespace DetailPortraits.Data {
             }
             this.previousCanRender = result;
             return result;
+        }
+
+        public virtual void OnChangeCanRender(bool newCanRender) {
+            
         }
 
         public void Render(Vector2 globalPosition, float globalScale, float globalScaleH, string rootPath) {
@@ -127,6 +143,8 @@ namespace DetailPortraits.Data {
             Scribe_Values.Look(ref suspended, "suspended");
             Scribe_Values.Look(ref lockLayerDurationTick, "lockLayerDurationTick");
             Scribe_Values.Look(ref lastValidatedTick, "lastValidatedTick");
+
+            Scribe_Collections.Look(ref extraStorage, "extraStorage");
         }
 
         public override string ToString() {

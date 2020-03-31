@@ -44,7 +44,7 @@ namespace DetailPortraits.Dialog {
 		}
 
 		public void DoWindowContentsInternal(Listing_Standard listing_Standard) {
-			Rect rect = listing_Standard.GetRect(Text.LineHeight + 4f);
+			Rect rect = listing_Standard.GetRect(Text.LineHeight + 8f);
 			Rect rectLabel = new Rect(rect.x, rect.y, 400, rect.height);
 			Rect rectTextField = new Rect(rect.x + rectLabel.width, rect.y, 120, rect.height);
 			Widgets.Label(rectLabel, "Dialog_EditLayerDetail.LockLayerDurationTick".Translate());

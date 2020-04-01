@@ -58,10 +58,15 @@ namespace DetailPortraits.Data {
 
         public void RefreshRenderableLayers() {
             List<int> filledLayerNumbers = new List<int>();
-            List<LayerData> previousRenderableLayers = new List<LayerData>(this.cacheRenderableLayers);
+            List<LayerData> previousRenderableLayers = null;
+            if (this.cacheRenderableLayers.NullOrEmpty()) {
+                previousRenderableLayers = new List<LayerData>();
+            } else {
+                previousRenderableLayers = new List<LayerData>(this.cacheRenderableLayers);
+            }
             this.cacheRenderableLayers = new List<LayerData>();
             foreach (LayerData layer in this.layers) {
-                if (!filledLayerNumbers.Contains(layer.layerNumber) && layer.CanRender(this.pawn)) {
+                if (!filledLayerNumbers.Contains(layer.layerNumber) && layer.ResolveCanRender(this.pawn)) {
                     filledLayerNumbers.Add(layer.layerNumber);
                     layer.Refresh(this.globalScale, this.globalScaleH, this.rootPath);
                     this.cacheRenderableLayers.Add(layer);
@@ -69,31 +74,33 @@ namespace DetailPortraits.Data {
             }
             this.cacheRenderableLayers.SortBy(layer => layer.layerNumber);
 
-            bool onChangeLayers = false;
+            List<LayerData> changedLayers = new List<LayerData>();
             foreach (LayerData layer in this.cacheRenderableLayers) {
                 if (!previousRenderableLayers.Contains(layer)) {
-                    Log.Message("Add " + layer.layerName);
+                    Log.Message(pawn.Label + ":Add " + layer.layerName);
                     layer.OnChangeCanRender(true);
-                    onChangeLayers = true;
+                    changedLayers.Add(layer);
                 }
             }
             foreach (LayerData layer in previousRenderableLayers) {
                 if (!this.cacheRenderableLayers.Contains(layer)) {
-                    Log.Message("Remove " + layer.layerName);
+                    Log.Message(pawn.Label + ":Remove " + layer.layerName);
                     layer.OnChangeCanRender(false);
-                    onChangeLayers = true;
+                    changedLayers.Add(layer);
                 }
             }
-            if (onChangeLayers) {
-                OnChangeRenderableLayers(previousRenderableLayers);
+            if (!changedLayers.NullOrEmpty()) {
+                OnChangeRenderableLayers(changedLayers);
             }
 
+            if (pawn != null) {
             PortraitsCache.SetDirty(pawn);
+            }
             //Log.Message("[RefreshRenderableLayers]\n" + string.Join("\n", this.cacheRenderableLayers.ConvertAll(l => l.ToString()).ToArray()));
             this.lastRefreshTick = Find.TickManager.TicksGame;
         }
 
-        public virtual void OnChangeRenderableLayers(List<LayerData> previousRenderableLayers) {
+        public virtual void OnChangeRenderableLayers(List<LayerData> changedLayers) {
 
         }
 

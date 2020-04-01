@@ -26,7 +26,8 @@ namespace DetailPortraits.Data {
         public PortraitData parent;
 
         private int lastValidatedTick = 0;
-        private bool previousCanRender = false;
+
+        private bool cacheCanRender = false;
 
         // 連携MOD用
         private Dictionary<string, string> extraStorage = new Dictionary<string, string>();
@@ -43,6 +44,12 @@ namespace DetailPortraits.Data {
                     this.extraStorage = new Dictionary<string, string>();
                 }
                 return this.extraStorage;
+            }
+        }
+
+        public bool CanRender {
+            get {
+                return this.cacheCanRender;
             }
         }
 
@@ -68,9 +75,13 @@ namespace DetailPortraits.Data {
             this.localScaleH = src.localScaleH;
             this.suspended = src.suspended;
             this.lockLayerDurationTick = src.lockLayerDurationTick;
+
+            this.lastValidatedTick = Find.TickManager.TicksGame;
+
+            this.extraStorage = new Dictionary<string, string>(src.extraStorage);
         }
 
-        public bool CanRender(Pawn p) {
+        public bool ResolveCanRender(Pawn p) {
             bool result = false;
             if (this.suspended) {
                 result = false;
@@ -81,10 +92,10 @@ namespace DetailPortraits.Data {
             } else if (drawingConditions.All(c => c.IsSatisfied(p))) {
                 result = true;
             }
-            if (this.previousCanRender != result && result) {
+            if (this.cacheCanRender != result && result) {
                 this.lastValidatedTick = Find.TickManager.TicksGame;
             }
-            this.previousCanRender = result;
+            this.cacheCanRender = result;
             return result;
         }
 
@@ -143,6 +154,7 @@ namespace DetailPortraits.Data {
             Scribe_Values.Look(ref suspended, "suspended");
             Scribe_Values.Look(ref lockLayerDurationTick, "lockLayerDurationTick");
             Scribe_Values.Look(ref lastValidatedTick, "lastValidatedTick");
+            Scribe_Values.Look(ref cacheCanRender, "cacheCanRender");
 
             Scribe_Collections.Look(ref extraStorage, "extraStorage");
         }

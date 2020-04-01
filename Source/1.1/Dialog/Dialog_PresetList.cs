@@ -89,6 +89,9 @@ namespace DetailPortraits.Dialog {
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Text.Font = GameFont.Small;
                 Widgets.Label(rect2, current.name);
+                if (Widgets.ButtonInvisible(new Rect(15f, 0f, 200f, position.height))) {
+                    this.typingName = current.name;
+                }
                 TooltipHandler.TipRegion(rect2, current.GetToolTip());
                 GUI.color = Color.white;
                 Rect rect3 = new Rect(270f, 0f, 200f, position.height);

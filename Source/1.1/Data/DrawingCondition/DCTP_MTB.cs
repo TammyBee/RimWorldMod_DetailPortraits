@@ -51,6 +51,7 @@ namespace DetailPortraits.Data.DrawingCondition {
             if (checkDuration <= 0 || day <= 0f) {
                 yield return false;
             } else {
+                Log.Message("DCTP_MTB:" + p.ToStringSafe() + "/" + checkDuration);
                 yield return Rand.MTBEventOccurs(day, 60000f, checkDuration);
             }
         }

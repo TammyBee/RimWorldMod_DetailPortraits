@@ -61,8 +61,8 @@ namespace DetailPortraits.Data {
             this.parent = parent;
         }
 
-        public LayerData(LayerData src) {
-            this.parent = src.parent;
+        public LayerData(LayerData src, PortraitData parent) {
+            this.parent = parent;
             this.layerNumber = src.layerNumber;
             this.layerName = src.layerName;
             this.drawingConditions = new List<DrawingConditionData>();
@@ -76,18 +76,23 @@ namespace DetailPortraits.Data {
             this.suspended = src.suspended;
             this.lockLayerDurationTick = src.lockLayerDurationTick;
 
-            this.lastValidatedTick = Find.TickManager.TicksGame;
+            this.lastValidatedTick = - this.lockLayerDurationTick - 1;
+            this.cacheCanRender = false;
 
-            this.extraStorage = new Dictionary<string, string>(src.extraStorage);
+            if (!src.extraStorage.EnumerableNullOrEmpty()) {
+                this.extraStorage = new Dictionary<string, string>(src.extraStorage);
+            } else {
+                this.extraStorage = new Dictionary<string, string>();
+            }
         }
 
-        public bool ResolveCanRender(Pawn p) {
+        public bool ResolveCanRender(Pawn p, bool initializeRefresh) {
             bool result = false;
             if (this.suspended) {
                 result = false;
             } else if (drawingConditions.NullOrEmpty()) {
                 result = true;
-            } else if (Find.TickManager.TicksGame - this.lastValidatedTick <= this.lockLayerDurationTick) {
+            } else if (!initializeRefresh && Find.TickManager.TicksGame - this.lastValidatedTick <= this.lockLayerDurationTick) {
                 result = true;
             } else if (drawingConditions.All(c => c.IsSatisfied(p))) {
                 result = true;

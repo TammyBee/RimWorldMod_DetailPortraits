@@ -121,13 +121,13 @@ namespace DetailPortraits.Dialog {
             if (floatFieldPositionX.Update(new Rect(rect.x + 204f, rect.y + 220f, 120f, 24f))) {
                 if (layerData.localPosition.x != floatFieldPositionX.Value) {
                     layerData.localPosition.x = floatFieldPositionX.Value;
-                    layerData.parent.RefreshRenderableLayers();
+                    layerData.parent.RefreshRenderableLayers(false);
                 }
             }
             if (floatFieldPositionY.Update(new Rect(rect.x + 334f, rect.y + 220f, 120f, 24f))) {
                 if (layerData.localPosition.y != floatFieldPositionY.Value) {
                     layerData.localPosition.y = floatFieldPositionY.Value;
-                    layerData.parent.RefreshRenderableLayers();
+                    layerData.parent.RefreshRenderableLayers(false);
                 }
             }
 
@@ -135,13 +135,13 @@ namespace DetailPortraits.Dialog {
             if (floatFieldScale.Update(new Rect(rect.x + 204f, rect.y + 250f, 120f, 24f))) {
                 if (layerData.localScale != floatFieldScale.Value) {
                     layerData.localScale = floatFieldScale.Value;
-                    layerData.parent.RefreshRenderableLayers();
+                    layerData.parent.RefreshRenderableLayers(false);
                 }
             }
             if (floatFieldScaleH.Update(new Rect(rect.x + 334f, rect.y + 250f, 120f, 24f))) {
                 if (layerData.localScaleH != floatFieldScaleH.Value) {
                     layerData.localScaleH = floatFieldScaleH.Value;
-                    layerData.parent.RefreshRenderableLayers();
+                    layerData.parent.RefreshRenderableLayers(false);
                 }
             }
 

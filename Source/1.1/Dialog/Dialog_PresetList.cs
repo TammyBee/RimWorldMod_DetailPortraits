@@ -45,6 +45,8 @@ namespace DetailPortraits.Dialog {
 
         private Dialog_EditPortrait parent;
 
+        private Pawn pawn;
+
         private static readonly Color DefaultPresetTextColor = new Color(1f, 1f, 0.6f);
 
         private static readonly Color InvalidPresetTextColor = new Color(1f, 0f, 0f);
@@ -55,13 +57,14 @@ namespace DetailPortraits.Dialog {
             }
         }
 
-        public Dialog_PresetList(PortraitData portraitData, Dialog_EditPortrait parent) {
+        public Dialog_PresetList(PortraitData portraitData, Dialog_EditPortrait parent, Pawn pawn) {
             this.doCloseButton = true;
             this.doCloseX = true;
             this.forcePause = true;
             this.absorbInputAroundWindow = true;
             this.portraitData = portraitData;
             this.parent = parent;
+            this.pawn = pawn;
             this.LoadSettings();
         }
 
@@ -120,7 +123,7 @@ namespace DetailPortraits.Dialog {
         }
 
         public void Load(DetailPortraitsPreset preset) {
-            this.portraitData.pawn.SetPortraitData(preset.portraitData);
+            this.pawn.SetPortraitData(preset.portraitData);
             this.parent.Setup();
             this.Close(true);
         }

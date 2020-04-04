@@ -134,7 +134,7 @@ namespace DetailPortraits {
             GameComponent_DetailPortraits comp = Current.Game.GetComponent<GameComponent_DetailPortraits>();
             if (comp?.portraits != null && comp.portraits.ContainsKey(pawn)) {
                 comp.portraits[pawn] = new PortraitData(portrait,pawn);
-                comp.portraits[pawn].RefreshRenderableLayers();
+                comp.portraits[pawn].RefreshRenderableLayers(true);
                 return true;
             }
             return false;

@@ -38,7 +38,7 @@ namespace DetailPortraits {
                 return false;
             }
             if (portrait.HasDCTP(typeDCTP)) {
-                portrait.RefreshRenderableLayers();
+                portrait.RefreshRenderableLayers(false);
                 return true;
             }
             return false;
@@ -49,8 +49,11 @@ namespace DetailPortraits {
             if (portrait == null) {
                 return false;
             }
+            if (!portrait.CanRefreshNow) {
+                return false;
+            }
             if (typesDCTP.Any(t => portrait.HasDCTP(t))) {
-                portrait.RefreshRenderableLayers();
+                portrait.RefreshRenderableLayers(false);
                 return true;
             }
             return false;

@@ -8,6 +8,7 @@
 	<DetailPortraits.Dialog_EditPortraitTitle>{0}のポートレイト設定</DetailPortraits.Dialog_EditPortraitTitle>
 
 	<DetailPortraits.OpenPresetListDialog>プリセット</DetailPortraits.OpenPresetListDialog>
+	<DetailPortraits.RefreshRenderableLayers>レイヤーを更新</DetailPortraits.RefreshRenderableLayers>
 
 	<DetailPortraits.Label_RenderMode>描画モード</DetailPortraits.Label_RenderMode>
 	<DetailPortraits.Radio_RenderModeDefault>デフォルト</DetailPortraits.Radio_RenderModeDefault>
@@ -95,13 +96,14 @@
 	<DetailPortraits.DCTP_MTB_FloatFieldDay>日数</DetailPortraits.DCTP_MTB_FloatFieldDay>
 
 	<!-- DCTP_Group -->
-	<DetailPortraits.GroupDCTPBase>{0}   &gt;</DetailPortraits.GroupDCTPBase>
+	<DetailPortraits.GroupDCTPBase>{0} &gt;</DetailPortraits.GroupDCTPBase>
 	<DetailPortraits.GroupDCTP_HasBreakRisk>精神崩壊リスク</DetailPortraits.GroupDCTP_HasBreakRisk>
 	<DetailPortraits.GroupDCTP_JobTargetThing>Jobのターゲット</DetailPortraits.GroupDCTP_JobTargetThing>
 	<DetailPortraits.GroupDCTP_Need>欲求</DetailPortraits.GroupDCTP_Need>
 	<DetailPortraits.GroupDCTP_CapacityLevel>能力</DetailPortraits.GroupDCTP_CapacityLevel>
 
-	<DetailPortraits.CustomDataListPostfix> etc.</DetailPortraits.CustomDataListPostfix>
+	<DetailPortraits.CustomDataListPostfix>
+		etc.</DetailPortraits.CustomDataListPostfix>
 
 	<!-- Dialog_PresetList -->
 	<DetailPortraits.LoadPreset>ロード</DetailPortraits.LoadPreset>

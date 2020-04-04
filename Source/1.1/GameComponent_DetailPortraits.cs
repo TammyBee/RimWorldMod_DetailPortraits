@@ -51,7 +51,7 @@ namespace DetailPortraits {
                 if (p != null && !this.portraits.ContainsKey(p)) {
                     this.portraits[p] = new PortraitData(p);
                 }else if (p != null && this.portraits.ContainsKey(p)) {
-                    this.portraits[p].RefreshRenderableLayers();
+                    this.portraits[p].RefreshRenderableLayers(false);
                 }
             }
             //Log.Message("Refresh");

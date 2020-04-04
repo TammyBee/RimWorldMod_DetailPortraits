@@ -89,7 +89,11 @@ namespace DetailPortraits.Dialog {
             rect2.yMax -= 38f;
 
             if (Widgets.ButtonText(new Rect(rect2.x + 500f, rect2.y, 140f, 28f), "DetailPortraits.OpenPresetListDialog".Translate())) {
-                Find.WindowStack.Add(new Dialog_PresetList(PortraitData,this));
+                Find.WindowStack.Add(new Dialog_PresetList(PortraitData,this,pawn));
+            }
+
+            if (Widgets.ButtonText(new Rect(rect2.x + 650f, rect2.y, 140f, 28f), "DetailPortraits.RefreshRenderableLayers".Translate())) {
+                PortraitData.RefreshRenderableLayers(false);
             }
 
             TooltipHandler.TipRegion(new Rect(rect2.x, rect2.y, 200f, 24), "DetailPortraits.Tooltip_Desc_RenderMode".Translate());
@@ -112,13 +116,13 @@ namespace DetailPortraits.Dialog {
                 if (floatFieldPositionX.Update(new Rect(rect2.x + 200f, rect2.y, 100f, 24f))) {
                     if (PortraitData.globalPosition.x != floatFieldPositionX.Value) {
                         PortraitData.globalPosition.x = floatFieldPositionX.Value;
-                        this.PortraitData.RefreshRenderableLayers();
+                        this.PortraitData.RefreshRenderableLayers(false);
                     }
                 }
                 if (floatFieldPositionY.Update(new Rect(rect2.x + 310f, rect2.y, 100f, 24f))) {
                     if (PortraitData.globalPosition.y != floatFieldPositionY.Value) {
                         PortraitData.globalPosition.y = floatFieldPositionY.Value;
-                        this.PortraitData.RefreshRenderableLayers();
+                        this.PortraitData.RefreshRenderableLayers(false);
                     }
                 }
                 rect2.y += 32f;
@@ -127,13 +131,13 @@ namespace DetailPortraits.Dialog {
                 if (floatFieldScale.Update(new Rect(rect2.x + 200f, rect2.y, 100f, 24f))) {
                     if (PortraitData.globalScale != floatFieldScale.Value) {
                         PortraitData.globalScale = floatFieldScale.Value;
-                        this.PortraitData.RefreshRenderableLayers();
+                        this.PortraitData.RefreshRenderableLayers(false);
                     }
                 }
                 if (floatFieldScaleH.Update(new Rect(rect2.x + 310f, rect2.y, 100f, 24f))) {
                     if (PortraitData.globalScaleH != floatFieldScaleH.Value) {
                         PortraitData.globalScaleH = floatFieldScaleH.Value;
-                        this.PortraitData.RefreshRenderableLayers();
+                        this.PortraitData.RefreshRenderableLayers(false);
                     }
                 }
                 rect2.y += 32f;
@@ -172,7 +176,7 @@ namespace DetailPortraits.Dialog {
                 }
 
                 if (this.selectedLayer != null && Widgets.ButtonImage(new Rect(rect2.x + 24f, rect2.y, 24f, 24f), Dialog_EditPortrait.Copy)) {
-                    PortraitData.layers.Add(new LayerData(this.selectedLayer));
+                    PortraitData.layers.Add(new LayerData(this.selectedLayer, PortraitData));
                 }
                 rect2.y += 32f;
 
@@ -228,22 +232,22 @@ namespace DetailPortraits.Dialog {
                 LayerData tmp = PortraitData.layers[reorderUp - 1];
                 PortraitData.layers[reorderUp - 1] = PortraitData.layers[reorderUp];
                 PortraitData.layers[reorderUp] = tmp;
-                this.PortraitData.RefreshRenderableLayers();
+                this.PortraitData.RefreshRenderableLayers(false);
             } else if (reorderDown != -1) {
                 LayerData tmp = PortraitData.layers[reorderDown + 1];
                 PortraitData.layers[reorderDown + 1] = PortraitData.layers[reorderDown];
                 PortraitData.layers[reorderDown] = tmp;
-                this.PortraitData.RefreshRenderableLayers();
+                this.PortraitData.RefreshRenderableLayers(false);
             } else if (delete != -1) {
                 PortraitData.layers.RemoveAt(delete);
-                this.PortraitData.RefreshRenderableLayers();
+                this.PortraitData.RefreshRenderableLayers(false);
             }
             Widgets.EndScrollView();
         }
 
         public override void PostClose() {
             base.PostClose();
-            this.PortraitData.RefreshRenderableLayers();
+            this.PortraitData.RefreshRenderableLayers(false);
         }
     }
 }

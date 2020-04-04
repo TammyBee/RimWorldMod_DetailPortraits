@@ -38,6 +38,7 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         private bool IsSatisfiedInternal(Pawn p) {
             if (p == null) {
+                Log.Message("p == null");
                 return lhsPreset is DCTP_IsDead;
             }
             IEnumerable<object> lhs = lhsPreset.GetValue(p);

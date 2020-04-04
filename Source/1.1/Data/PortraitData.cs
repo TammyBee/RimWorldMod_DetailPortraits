@@ -68,7 +68,7 @@ namespace DetailPortraits.Data {
             if (!initializeRefresh && !CanRefreshNow) {
                 return;
             }
-            Log.Message("RefreshRenderableLayers:" + pawn.ToStringSafe() + "/" + initializeRefresh);
+            //Log.Message("RefreshRenderableLayers:" + pawn.ToStringSafe() + "/" + initializeRefresh);
             List<LayerData> previousRenderableLayers = null;
             if (this.cacheRenderableLayers.NullOrEmpty()) {
                 previousRenderableLayers = new List<LayerData>();

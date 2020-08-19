@@ -79,8 +79,6 @@ namespace DetailPortraits.Data.DrawingCondition {
         public override IEnumerable<object> GetValue(Pawn p) {
             if (p?.MentalStateDef != null) {
                 yield return p.MentalStateDef.defName;
-            } else {
-                yield return "";
             }
         }
     }

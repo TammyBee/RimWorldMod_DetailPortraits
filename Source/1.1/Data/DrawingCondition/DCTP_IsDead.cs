@@ -5,34 +5,10 @@ using System.Text;
 using Verse;
 
 namespace DetailPortraits.Data.DrawingCondition {
-    public class DCTP_IsDead : DrawingConditionTermPreset {
+    public class DCTP_IsDead : DCTP_Base_Bool {
         public override string PresetLabel {
             get {
                 return "DetailPortraits.DCTP_IsDead_Label".Translate();
-            }
-        }
-
-        public override IEnumerable<object> RHS {
-            get {
-                yield return true;
-            }
-        }
-
-        public override bool IsBoolPreset {
-            get {
-                return true;
-            }
-        }
-
-        public override Type RHS_Type {
-            get {
-                return typeof(bool);
-            }
-        }
-
-        public override Type LHS_Type {
-            get {
-                return typeof(bool);
             }
         }
 
@@ -42,16 +18,8 @@ namespace DetailPortraits.Data.DrawingCondition {
             }
         }
 
-        public override void ExposeDataInternal() {
-        }
-
-        public override void AddRHS(object rhs) {
-        }
-
-        public override void RemoveAtRHS(int index) {
-        }
-
         public override IEnumerable<object> GetValue(Pawn p) {
+            Log.Message("DCTP_IsDead " + p.ToStringSafe() + ":" + p.Dead);
             yield return p.Dead;
         }
     }

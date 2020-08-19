@@ -121,13 +121,13 @@ namespace DetailPortraits.Dialog {
             if (floatFieldPositionX.Update(new Rect(rect.x + 204f, rect.y + 220f, 120f, 24f))) {
                 if (layerData.localPosition.x != floatFieldPositionX.Value) {
                     layerData.localPosition.x = floatFieldPositionX.Value;
-                    layerData.parent.RefreshRenderableLayers();
+                    layerData.parent.RefreshRenderableLayers(false);
                 }
             }
             if (floatFieldPositionY.Update(new Rect(rect.x + 334f, rect.y + 220f, 120f, 24f))) {
                 if (layerData.localPosition.y != floatFieldPositionY.Value) {
                     layerData.localPosition.y = floatFieldPositionY.Value;
-                    layerData.parent.RefreshRenderableLayers();
+                    layerData.parent.RefreshRenderableLayers(false);
                 }
             }
 
@@ -135,19 +135,24 @@ namespace DetailPortraits.Dialog {
             if (floatFieldScale.Update(new Rect(rect.x + 204f, rect.y + 250f, 120f, 24f))) {
                 if (layerData.localScale != floatFieldScale.Value) {
                     layerData.localScale = floatFieldScale.Value;
-                    layerData.parent.RefreshRenderableLayers();
+                    layerData.parent.RefreshRenderableLayers(false);
                 }
             }
             if (floatFieldScaleH.Update(new Rect(rect.x + 334f, rect.y + 250f, 120f, 24f))) {
                 if (layerData.localScaleH != floatFieldScaleH.Value) {
                     layerData.localScaleH = floatFieldScaleH.Value;
-                    layerData.parent.RefreshRenderableLayers();
+                    layerData.parent.RefreshRenderableLayers(false);
                 }
             }
 
             TooltipHandler.TipRegion(new Rect(rect.x + 4f, rect.y + 280f, 200f, 24f), "DetailPortraits.Tooltip_Desc_DrawingConditions".Translate());
             Widgets.Label(new Rect(rect.x + 4f, rect.y + 280f, 200f, 24f), "DetailPortraits.Label_DrawingConditions".Translate());
             DrawDCEditor(new Rect(rect.x + 208f, rect.y + 280f, 400f, 120f), ref layerData);
+
+            Widgets.Label(new Rect(rect.x + 4f, rect.y + 410f, 200f, 24f), "DetailPortraits.Label_OpenLayerDetail".Translate());
+            if(Widgets.ButtonText(new Rect(rect.x + 208f, rect.y + 410f, 50f, 24f), "DetailPortraits.Button_OpenLayerDetail".Translate())) {
+                Find.WindowStack.Add(new Dialog_EditLayerDetail(layerData));
+            }
         }
 
         public static void DrawFilePathsEditor(Rect rect, ref LayerData layerData) {

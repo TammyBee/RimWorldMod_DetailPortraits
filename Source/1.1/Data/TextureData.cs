@@ -46,15 +46,21 @@ namespace DetailPortraits.Data {
         public void RefreshGraphic(float scale, float scaleH, string rootPath = "") {
             RefreshCandidatePaths();
 
-            string texturePath = CandidatePaths.RandomElement();
-            this.cacheGraphicData = new GraphicData();
-            this.cacheGraphicData.graphicClass = typeof(Graphic_Single);
-            this.cacheGraphicData.texPath = rootPath + texturePath;
-            this.cacheGraphicData.shaderType = ShaderTypeDefOf.Transparent;
-            this.cacheGraphicData.drawSize = new Vector2(scale, scaleH);
-            this.cacheGraphicData.color = Color.white;
+            if (!CandidatePaths.NullOrEmpty()) {
+                string texturePath = CandidatePaths.RandomElement();
+                this.cacheGraphicData = new GraphicData();
+                this.cacheGraphicData.graphicClass = typeof(Graphic_Single);
+                if (texturePath.StartsWith("!")) {
+                    this.cacheGraphicData.texPath = texturePath.Substring(1);
+                } else {
+                    this.cacheGraphicData.texPath = rootPath + texturePath;
+                }
+                this.cacheGraphicData.shaderType = ShaderTypeDefOf.Transparent;
+                this.cacheGraphicData.drawSize = new Vector2(scale, scaleH);
+                this.cacheGraphicData.color = Color.white;
 
-            this.previousRootPath = rootPath;
+                this.previousRootPath = rootPath;
+            }
         }
 
         public void RefreshCandidatePaths() {

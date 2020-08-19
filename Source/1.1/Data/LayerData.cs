@@ -21,12 +21,35 @@ namespace DetailPortraits.Data {
         public float localScale = 1f;
         public float localScaleH = 1f;
         public bool suspended;
+        public int lockLayerDurationTick = 0;
 
         public PortraitData parent;
+
+        private int lastValidatedTick = 0;
+
+        private bool cacheCanRender = false;
+
+        // 連携MOD用
+        private Dictionary<string, string> extraStorage = new Dictionary<string, string>();
 
         public bool IsAvailable {
             get {
                 return drawingConditions.NullOrEmpty() || drawingConditions.All(dc => dc.IsAvailable);
+            }
+        }
+
+        public Dictionary<string, string> ExtraStorage {
+            get {
+                if (this.extraStorage == null) {
+                    this.extraStorage = new Dictionary<string, string>();
+                }
+                return this.extraStorage;
+            }
+        }
+
+        public bool CanRender {
+            get {
+                return this.cacheCanRender;
             }
         }
 
@@ -38,8 +61,8 @@ namespace DetailPortraits.Data {
             this.parent = parent;
         }
 
-        public LayerData(LayerData src) {
-            this.parent = src.parent;
+        public LayerData(LayerData src, PortraitData parent) {
+            this.parent = parent;
             this.layerNumber = src.layerNumber;
             this.layerName = src.layerName;
             this.drawingConditions = new List<DrawingConditionData>();
@@ -51,16 +74,38 @@ namespace DetailPortraits.Data {
             this.localScale = src.localScale;
             this.localScaleH = src.localScaleH;
             this.suspended = src.suspended;
+            this.lockLayerDurationTick = src.lockLayerDurationTick;
+
+            this.lastValidatedTick = - this.lockLayerDurationTick - 1;
+            this.cacheCanRender = false;
+
+            if (!src.extraStorage.EnumerableNullOrEmpty()) {
+                this.extraStorage = new Dictionary<string, string>(src.extraStorage);
+            } else {
+                this.extraStorage = new Dictionary<string, string>();
+            }
         }
 
-        public bool CanRender(Pawn p) {
+        public bool ResolveCanRender(Pawn p, bool initializeRefresh) {
+            bool result = false;
             if (this.suspended) {
-                return false;
+                result = false;
+            } else if (drawingConditions.NullOrEmpty()) {
+                result = true;
+            } else if (!initializeRefresh && Find.TickManager.TicksGame - this.lastValidatedTick <= this.lockLayerDurationTick) {
+                result = true;
+            } else if (drawingConditions.All(c => c.IsSatisfied(p))) {
+                result = true;
             }
-            if (drawingConditions.NullOrEmpty()) {
-                return true;
+            if (this.cacheCanRender != result && result) {
+                this.lastValidatedTick = Find.TickManager.TicksGame;
             }
-            return drawingConditions.All(c => c.IsSatisfied(p));
+            this.cacheCanRender = result;
+            return result;
+        }
+
+        public virtual void OnChangeCanRender(bool newCanRender) {
+            
         }
 
         public void Render(Vector2 globalPosition, float globalScale, float globalScaleH, string rootPath) {
@@ -112,6 +157,11 @@ namespace DetailPortraits.Data {
             Scribe_Values.Look(ref localScale, "localScale");
             Scribe_Values.Look(ref localScaleH, "localScaleH", localScale);
             Scribe_Values.Look(ref suspended, "suspended");
+            Scribe_Values.Look(ref lockLayerDurationTick, "lockLayerDurationTick");
+            Scribe_Values.Look(ref lastValidatedTick, "lastValidatedTick");
+            Scribe_Values.Look(ref cacheCanRender, "cacheCanRender");
+
+            Scribe_Collections.Look(ref extraStorage, "extraStorage");
         }
 
         public override string ToString() {

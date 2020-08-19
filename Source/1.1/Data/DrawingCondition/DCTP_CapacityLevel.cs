@@ -6,16 +6,16 @@ using System.Text;
 using Verse;
 
 namespace DetailPortraits.Data.DrawingCondition {
-    public class DCTP_Need : DrawingConditionTermPreset {
-        private NeedDef needDef;
-        private string needDefName;
+    public class DCTP_CapacityLevel : DrawingConditionTermPreset {
+        private PawnCapacityDef capacityDef;
+        private string capacityDefName;
         public List<float> levels = new List<float>();
 
         public override List<DrawingConditionTermPreset> Generators {
             get {
                 List<DrawingConditionTermPreset> generators = new List<DrawingConditionTermPreset>();
-                foreach (NeedDef needDef in DefDatabase<NeedDef>.AllDefsListForReading) {
-                    generators.Add(new DCTP_Need(needDef));
+                foreach (PawnCapacityDef def in DefDatabase<PawnCapacityDef>.AllDefsListForReading) {
+                    generators.Add(new DCTP_CapacityLevel(def));
                 }
                 return generators;
             }
@@ -23,13 +23,13 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override string PresetLabel {
             get {
-                return "DetailPortraits.DCTP_Need_Label".Translate(needDef.label);
+                return "DetailPortraits.DCTP_CapacityLevel_Label".Translate(capacityDef.label);
             }
         }
 
         public override string GroupStringKey {
             get {
-                return "DetailPortraits.GroupDCTP_Need";
+                return "DetailPortraits.GroupDCTP_CapacityLevel";
             }
         }
 
@@ -55,7 +55,7 @@ namespace DetailPortraits.Data.DrawingCondition {
 
         public override DrawingConditionTermPreset Copy {
             get {
-                DCTP_Need dctp = new DCTP_Need(this.needDef);
+                DCTP_CapacityLevel dctp = new DCTP_CapacityLevel(this.capacityDef);
                 dctp.levels = new List<float>();
                 foreach (float rhs in this.levels) {
                     dctp.levels.Add(rhs);
@@ -64,17 +64,16 @@ namespace DetailPortraits.Data.DrawingCondition {
             }
         }
 
-        public DCTP_Need() { }
+        public DCTP_CapacityLevel() { }
 
-        public DCTP_Need(NeedDef needDef) {
-            this.needDef = needDef;
-            this.needDefName = this.needDef.defName;
+        public DCTP_CapacityLevel(PawnCapacityDef capacityDef) {
+            this.capacityDef = capacityDef;
+            this.capacityDefName = this.capacityDef.defName;
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            Need need = p.needs?.TryGetNeed(this.needDef);
-            if (need != null) {
-                yield return need.CurLevelPercentage;
+            if (p.health?.hediffSet != null && capacityDef != null) {
+                yield return PawnCapacityUtility.CalculateCapacityLevel(p.health.hediffSet, capacityDef, null, false);
             } else {
                 yield return 0f;
             }
@@ -89,9 +88,9 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public override void ExposeDataInternal() {
-            Scribe_Values.Look(ref this.needDefName, "needDef");
+            Scribe_Values.Look(ref this.capacityDefName, "capacityDef");
             if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs) {
-                needDef = DefDatabase<NeedDef>.GetNamed(this.needDefName, false);
+                capacityDef = DefDatabase<PawnCapacityDef>.GetNamed(this.capacityDefName, false);
             }
             Scribe_Collections.Look(ref levels, "levels");
         }

@@ -2,11 +2,13 @@
 <LanguageData>
 	<!-- Dialog_EditPortrait -->
 	<DetailPortraits.NormalizeScale>拡大率を正規化する</DetailPortraits.NormalizeScale>
+	<DetailPortraits.DCTPGrouped>描画条件をグループ化する</DetailPortraits.DCTPGrouped>
 
 	<!-- Dialog_EditPortrait -->
 	<DetailPortraits.Dialog_EditPortraitTitle>{0}のポートレイト設定</DetailPortraits.Dialog_EditPortraitTitle>
 
 	<DetailPortraits.OpenPresetListDialog>プリセット</DetailPortraits.OpenPresetListDialog>
+	<DetailPortraits.RefreshRenderableLayers>レイヤーを更新</DetailPortraits.RefreshRenderableLayers>
 
 	<DetailPortraits.Label_RenderMode>描画モード</DetailPortraits.Label_RenderMode>
 	<DetailPortraits.Radio_RenderModeDefault>デフォルト</DetailPortraits.Radio_RenderModeDefault>
@@ -37,8 +39,11 @@
 
 	<DetailPortraits.Tooltip_Desc_LayerNumber>小さいほど奥に、大きいほど手前に描画されます。\n</DetailPortraits.Tooltip_Desc_LayerNumber>
 	<DetailPortraits.Tooltip_Desc_LayerName>レイヤーの名前です。\n設定しなくても大丈夫です。</DetailPortraits.Tooltip_Desc_LayerName>
-	<DetailPortraits.Tooltip_Desc_LayerFilePaths>このModの'Textures'フォルダからの相対パスを指定してください。\n拡張子は必要ありません。\n複数のファイルパスを指定した場合は、描画する画像をその中からランダムに選びます。</DetailPortraits.Tooltip_Desc_LayerFilePaths>
+	<DetailPortraits.Tooltip_Desc_LayerFilePaths>このModの'Textures'フォルダからの相対パスを指定してください。\n拡張子は必要ありません。\n先頭に「!」を付けた場合、画像ファイルの基準パスが先頭につきません。\n複数のファイルパスを指定した場合は、描画する画像をその中からランダムに選びます。</DetailPortraits.Tooltip_Desc_LayerFilePaths>
 	<DetailPortraits.Tooltip_Desc_DrawingConditions>ここで指定した条件をすべて満たした場合、このレイヤーの画像が描画されます。</DetailPortraits.Tooltip_Desc_DrawingConditions>
+
+	<DetailPortraits.Label_OpenLayerDetail>詳細設定</DetailPortraits.Label_OpenLayerDetail>
+	<DetailPortraits.Button_OpenLayerDetail>開く</DetailPortraits.Button_OpenLayerDetail>
 
 	<!-- Dialog_EditDrawingCondition -->
 	<DetailPortraits.Dialog_EditDrawingConditionTitle>描画条件設定</DetailPortraits.Dialog_EditDrawingConditionTitle>
@@ -46,6 +51,11 @@
 	<DetailPortraits.Label_Operator>演算子</DetailPortraits.Label_Operator>
 	<DetailPortraits.Label_RHS>右辺</DetailPortraits.Label_RHS>
 	<DetailPortraits.Label_Reversed>フラグ反転</DetailPortraits.Label_Reversed>
+
+	<!-- Dialog_EditLayerDetail -->
+	<DetailPortraits.Dialog_EditLayerDetail_Title>レイヤー{0}の詳細設定</DetailPortraits.Dialog_EditLayerDetail_Title>
+	<Dialog_EditLayerDetail.LockLayerDurationTick>このレイヤーの描画をロックする時間(Tick)</Dialog_EditLayerDetail.LockLayerDurationTick>
+	<Dialog_EditLayerDetail.LockLayerDurationTick_Tip>すべての描画条件を満たしたときからこのTick数の間は、すべての描画条件を満たさなくてもすべての条件を満たしているとする。\nしかし、これより上の同じレイヤー番号のレイヤーが描画された場合は描画されない。</Dialog_EditLayerDetail.LockLayerDurationTick_Tip>
 
 	<!-- DrawingConditionData -->
 	<!-- 0:LHS,1:operator,2:RHS,3:ReverseFlag(if true) -->
@@ -66,14 +76,34 @@
 	<DetailPortraits.DCTP_AllThoughts_Label>全心情一覧</DetailPortraits.DCTP_AllThoughts_Label>
 	<DetailPortraits.DCTP_AllThoughtStages_Label>全心情一覧(段階付き)</DetailPortraits.DCTP_AllThoughtStages_Label>
 	<DetailPortraits.DCTP_BleedRate_Label>出血量</DetailPortraits.DCTP_BleedRate_Label>
-	<DetailPortraits.DCTP_Random_Label>乱数</DetailPortraits.DCTP_Random_Label>
+	<DetailPortraits.DCTP_Random_Label>乱数 (非推奨)</DetailPortraits.DCTP_Random_Label>
 	<DetailPortraits.DCTP_IsDrafted_Label>徴用中</DetailPortraits.DCTP_IsDrafted_Label>
 	<DetailPortraits.DCTP_IsDead_Label>死亡</DetailPortraits.DCTP_IsDead_Label>
 	<DetailPortraits.DCTP_IsDowned_Label>気絶中</DetailPortraits.DCTP_IsDowned_Label>
 	<DetailPortraits.DCTP_Inspiration_Label>ひらめき</DetailPortraits.DCTP_Inspiration_Label>
 	<DetailPortraits.DCTP_JobTargetThing_Label>Jobのターゲット{0}</DetailPortraits.DCTP_JobTargetThing_Label>
+	<DetailPortraits.DCTP_HasMinorBreakRisk_Label>精神崩壊リスク(軽度)</DetailPortraits.DCTP_HasMinorBreakRisk_Label>
+	<DetailPortraits.DCTP_HasMajorBreakRisk_Label>精神崩壊リスク(重度)</DetailPortraits.DCTP_HasMajorBreakRisk_Label>
+	<DetailPortraits.DCTP_HasExtremeBreakRisk_Label>精神崩壊リスク(致命的)</DetailPortraits.DCTP_HasExtremeBreakRisk_Label>
+	<DetailPortraits.DCTP_IsHungry_Label>空腹</DetailPortraits.DCTP_IsHungry_Label>
+	<DetailPortraits.DCTP_IsBored_Label>退屈</DetailPortraits.DCTP_IsBored_Label>
+	<DetailPortraits.DCTP_NeedsRescue_Label>救助が必要</DetailPortraits.DCTP_NeedsRescue_Label>
+	<DetailPortraits.DCTP_NeedsTends_Label>治療が必要</DetailPortraits.DCTP_NeedsTends_Label>
+	<DetailPortraits.DCTP_CapacityLevel_Label>{0}</DetailPortraits.DCTP_CapacityLevel_Label>
+	<DetailPortraits.DCTP_Hour_Label>現在時刻(時)</DetailPortraits.DCTP_Hour_Label>
+	<DetailPortraits.DCTP_MTB_Label>平均発生間隔(日)</DetailPortraits.DCTP_MTB_Label>
+	<DetailPortraits.DCTP_MTB_LabelInLayerList>平均発生間隔:{0}日</DetailPortraits.DCTP_MTB_LabelInLayerList>
+	<DetailPortraits.DCTP_MTB_FloatFieldDay>日数</DetailPortraits.DCTP_MTB_FloatFieldDay>
 
-	<DetailPortraits.CustomDataListPostfix> etc.</DetailPortraits.CustomDataListPostfix>
+	<!-- DCTP_Group -->
+	<DetailPortraits.GroupDCTPBase>{0} &gt;</DetailPortraits.GroupDCTPBase>
+	<DetailPortraits.GroupDCTP_HasBreakRisk>精神崩壊リスク</DetailPortraits.GroupDCTP_HasBreakRisk>
+	<DetailPortraits.GroupDCTP_JobTargetThing>Jobのターゲット</DetailPortraits.GroupDCTP_JobTargetThing>
+	<DetailPortraits.GroupDCTP_Need>欲求</DetailPortraits.GroupDCTP_Need>
+	<DetailPortraits.GroupDCTP_CapacityLevel>能力</DetailPortraits.GroupDCTP_CapacityLevel>
+
+	<DetailPortraits.CustomDataListPostfix>
+		etc.</DetailPortraits.CustomDataListPostfix>
 
 	<!-- Dialog_PresetList -->
 	<DetailPortraits.LoadPreset>ロード</DetailPortraits.LoadPreset>

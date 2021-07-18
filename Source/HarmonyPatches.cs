@@ -1,6 +1,6 @@
 ﻿using System;
 using Verse;
-using Harmony;
+using HarmonyLib;
 using System.Reflection;
 using DetailPortraits.Data;
 using RimWorld;
@@ -10,13 +10,12 @@ using Verse.AI;
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection.Emit;
-using Harmony.ILCopying;
 
 namespace DetailPortraits {
     [StaticConstructorOnStartup]
     class HarmonyPatches {
         static HarmonyPatches() {
-            var harmony = HarmonyInstance.Create("com.tammybee.detailportraits");
+            var harmony = new Harmony("com.tammybee.detailportraits");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
 
             MethodInfo origDrawColonist = typeof(ColonistBarColonistDrawer).GetMethod("DrawColonist", AccessTools.all);
@@ -27,7 +26,6 @@ namespace DetailPortraits {
         }
     }
 
-    /*
     class For_Debug {
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) {
             List<CodeInstruction> cis = new List<CodeInstruction>(instructions);
@@ -46,21 +44,20 @@ namespace DetailPortraits {
             Log.Message(sb.ToString());
         }
     }
-    */
 
     class ColonistBarColonistDrawer_DrawColonist_Patch {
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) {
             List<CodeInstruction> cis = new List<CodeInstruction>(instructions);
             //For_Debug.PrintCodeInstraction("[Before]", cis);
 
-            int insertPos = cis.FindIndex(c => (c.opcode == OpCodes.Brfalse && c.operand != null && Emitter.FormatArgument(c.operand) == "Label15"));
+            int insertPos = cis.FindIndex(c => (c.opcode == OpCodes.Brfalse_S && c.operand != null && c.operand.GetType() == typeof(Label) && $"Label{((Label)c.operand).GetHashCode()}" == "Label14"));
             List<CodeInstruction> injections = new List<CodeInstruction> {
                 new CodeInstruction(OpCodes.Ldarg_2),
                 new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ColonistBarColonistDrawer_DrawColonist_Patch), "CanRenderDeadMark")),
                 new CodeInstruction(cis[insertPos])
             };
             cis.InsertRange(insertPos + 1, injections);
-
+             
             foreach (CodeInstruction ci in cis) {
                 yield return ci;
             }
@@ -113,23 +110,23 @@ namespace DetailPortraits {
     }
 
     [HarmonyPatch(typeof(PawnRenderer))]
-    [HarmonyPatch("RenderPortrait")]
-    class PawnRenderer_RenderPortrait_Patch {
-        static bool Prefix(PawnRenderer __instance) {
+    [HarmonyPatch("RenderCache")]
+    class PawnRenderer_RenderCache_Patch {
+        static bool Prefix(PawnRenderer __instance, bool portrait) {
             Pawn p = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
-            PortraitData portrait = p.GetPortraitData();
-            if (portrait != null && portrait.renderMode == Data.RenderMode.DetailPortrait) {
-                portrait.Render();
+            PortraitData portraitData = p.GetPortraitData();
+            if (portrait && portraitData != null && portraitData.renderMode == Data.RenderMode.DetailPortrait) {
+                portraitData.Render();
                 return false;
             }
             return true;
         }
 
-        static void Postfix(PawnRenderer __instance) {
+        static void Postfix(PawnRenderer __instance, bool portrait) {
             Pawn p = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
-            PortraitData portrait = p.GetPortraitData();
-            if (portrait != null && portrait.renderMode == Data.RenderMode.Both) {
-                portrait.Render();
+            PortraitData portraitData = p.GetPortraitData();
+            if (portrait && portraitData != null && portraitData.renderMode == Data.RenderMode.Both) {
+                portraitData.Render();
             }
         }
     }

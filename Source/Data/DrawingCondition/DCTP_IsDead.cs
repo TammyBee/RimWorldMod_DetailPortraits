@@ -19,7 +19,6 @@ namespace DetailPortraits.Data.DrawingCondition {
         }
 
         public override IEnumerable<object> GetValue(Pawn p) {
-            Log.Message("DCTP_IsDead " + p.ToStringSafe() + ":" + p.Dead);
             yield return p.Dead;
         }
     }
